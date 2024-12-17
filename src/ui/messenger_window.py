@@ -14,7 +14,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
 
     #work_exemp = None
 
-    def __init__(self, username: str, cbu, smsg, rcvmsg, peers):
+    def __init__(self, username: str, cbu, smsg, peers):
         """
         Initializes the messenger application, sets up the UI, loads chat names,
         styles, and message templates, and connects signals to their respective slots
@@ -35,8 +35,6 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         self.peers = peers
         self.cbu = cbu
         self.smsg = smsg
-        self.rcvmsg = rcvmsg
-        self.messages = rcvmsg
         # self.rmvcn = rmvcn
         # self.connections = connections
         self.chat_names = [peer[2] for peer in self.peers]
@@ -71,7 +69,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         if ok and text.strip():
             if self.cbu(text.strip()):
                 self.chat_names.append(text.strip())
-            messages = self.rcvmsg()
+            # messages = self.rcvmsg()
             self.load_chats()
 
     def delete_chat(self):
