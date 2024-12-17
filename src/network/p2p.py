@@ -1,3 +1,5 @@
+'''This module contains main P2P network handler'''
+
 import threading
 import utils.logger as logger
 from .sockets import P2PSocket
@@ -11,6 +13,34 @@ log = logger.Logger("p2p")
 
 
 class P2PNetwork:
+    '''
+    That class of P2P network where peers corroze
+
+    :ivar host: Local peer's host
+    :type host: str
+    :ivar port: Local peer's port
+    :type port: int
+    :ivar blockchain: Peer's local blockchain
+    :type blockchain: Blockchain
+    :ivar username: Local peer's username
+    :type username: str
+    :ivar public_key: Local peer's DH public key
+    :type public_key: str
+    :ivar broadcast_port: Local peer's broadcast port
+    :type broadcast_port: int
+    :ivar peers: Set of knows peers
+    :type peers: set
+    :ivar sync_interval: Blockchain syncronization interval
+    :type sync_interval: int
+    :ivar broadcast_interval: Broadcast interval
+    :type broadcast_interval: int
+    :ivar sync_manager: Syncronization manager that handles blockchain operations
+    :type sync_manager: SyncManager
+    :ivar signature_manager: Sugnature manager that handles operations with signatures
+    :type DigitalSignature:
+    :ivar node: Node server of peer
+    :type node: P2PSocket
+    '''
     def __init__(
         self,
         host: str,
@@ -26,7 +56,35 @@ class P2PNetwork:
         broadcast_interval: int = 1,
         max_connections: int = 5
     ):
-        """Инициализация P2P сети."""
+        '''
+        P2P Network initialization
+
+
+        :param host: Local peer's host
+        :type host: str
+        :param port: Local peer's port
+        :type port: int
+        :param blockchain: Peer's local blockchain
+        :type blockchain: Blockchain
+        :param username: Local peer's username
+        :type username: str
+        :param public_key: Local peer's DH public key
+        :type public_key: str
+        :param broadcast_port: Local peer's broadcast port
+        :type broadcast_port: int
+        :param peers: Set of knows peers
+        :type peers: set
+        :param sync_interval: Blockchain syncronization interval
+        :type sync_interval: int
+        :param broadcast_interval: Broadcast interval
+        :type broadcast_interval: int
+        :param sync_manager: Syncronization manager that handles blockchain operations
+        :type sync_manager: SyncManager
+        :param signature_manager: Sugnature manager that handles operations with signatures
+        :type DigitalSignature:
+        :param node: Node server of peer
+        :type node: P2PSocket
+        '''
         self.blockchain = blockchain
         self.host = host
         self.port = port
@@ -42,12 +100,22 @@ class P2PNetwork:
 
 
     def start(self):
+        '''Starting P2P network'''
         self.node.blockchain = self.blockchain  # Добавляем blockchain в node
         threading.Thread(target=self.node.start_server, daemon=True).start()
         log.info(f"Node started at {self.host}:{self.port}")
 
     def connect_to_peer(self, peer_host: str, peer_port: int):
-        """Подключение к новому узлу."""
+        '''
+        Connecting to new peer
+
+        :param peer_host: Peer's host
+        :type peer_host: str
+        :param peer_port: Peer's port
+        :type peer_port: int
+        :return: Peer connection or None
+        :rtype: socket.connection or None
+        '''
         try:
             if (
                 self.host == peer_host or peer_host == "127.0.0.1"
@@ -61,13 +129,26 @@ class P2PNetwork:
             print(traceback.format_exc())
 
     def broadcast_message(self, message: str, conn):
-        """Рассылка сообщения всем подключенным узлам."""
+        '''
+        Broadcasting message to all peers
+
+        :param message: Message to broadcast
+        :type message: str
+        :param conn: Sender connection
+        :type conn: socket.connection
+        '''
         log.debug(f"Broadcasting message: {message}")
-        print(message)
         self.node.broadcast(message, conn)
 
     def broadcast_transaction(self, transaction: Transaction, conn):
-        """Рассылает транзакцию всем подключенным узлам."""
+        '''
+        Broadcasting transaction
+
+        :param transaction: Transaction to broadcast
+        :type transaction: Transaction
+        :param conn: Sender connection
+        :type conn: socket.connection
+        '''
         transaction_data = json.dumps(
             transaction.to_dict(), ensure_ascii=False
         ).encode()
@@ -75,7 +156,7 @@ class P2PNetwork:
         self.broadcast_message(b"NEW_TRANSACTION" + transaction_data, conn)
 
     def discover_peers(self):
-        """Механизм обнаружения новых узлов."""
+        '''Peers discovery mechainsm'''
         self.peers = discover_peers(
             self.host,
             self.port,
@@ -87,5 +168,5 @@ class P2PNetwork:
         log.info(f"Discovered peers: {list(self.peers)}")
 
     def sync_with_peers(self):
-        """Синхронизация данных с подключенными узлами."""
+        '''Syncronization with connected peers'''
         self.sync_manager.start_sync_loop()

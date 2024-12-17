@@ -1,3 +1,7 @@
+'''
+This module contains main socket logic and its main handlers
+'''
+
 import socket
 import threading
 from utils import logger
@@ -7,13 +11,50 @@ log = logger.Logger("sockets")
 
 
 class P2PSocket:
-    def __init__(self, host: str, port: int, blockchain, sync_manager, signature_manager, max_connections: int = 5):
-        """Инициализация сокета для P2P соединений."""
+    '''
+    The main socket class
+
+    :ivar host: Local peer host
+    :type host: str
+    :ivar port: Local peer port
+    :type port: int
+    :ivar blockchain: Local peer's blockchain
+    :type blockchain: Blockchain
+    :ivar max_connections: Maximum connections peer allows to connect
+    :type max_connections: int
+    :ivar socket: Main socket instance that used to send and accept connections
+    :type socket: Socket
+    :ivar connections: Peers active connections
+    :type connections: List[(conn, addr)]
+    :ivar sync_manager: Syncronization manager instance that handles every blockchain action
+    :type sync_manager: SyncManager
+    :ivar signature_manager: Signature manager that handles every action with signing messages and transactions
+    :type signature_manager: DigitalSignature
+    '''
+    def __init__(self, host: str, port: int, blockchain, sync_manager,
+                 signature_manager, max_connections: int = 5):
+        """
+        P2PSocket intialization.
+
+        :param host: Local peer host
+        :type host: str
+        :param port: Local peer port
+        :type port: int
+        :param blockchain: Local peer's blockchain
+        :type blockchain: Blockchain
+        :param max_connections: Maximum connections peer allows to connect
+        :type max_connections: int
+        :param sync_manager: Syncronization manager instance that handles every blockchain action
+        :type sync_manager: SyncManager
+        :param signature_manager: Signature manager that handles every action with signing messages and transactions
+        :type signature_manager: DigitalSignature
+
+        """
         self.host = host
         self.port = port
         self.max_connections = max_connections
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.connections = []  # Список активных подключений
+        self.connections = []  # Active connection list
         self.blockchain = blockchain
         self.sync_manager = sync_manager
         self.signature_manager = signature_manager
@@ -21,7 +62,7 @@ class P2PSocket:
 
 
     def start_server(self):
-        """Запуск сервера для приема подключений."""
+        '''Starting server to accept connections'''
         try:
             self.socket.bind((self.host, self.port))
             self.socket.listen(self.max_connections)
@@ -47,7 +88,14 @@ class P2PSocket:
                 return
 
     def handle_client(self, conn, addr):
-        """Обработка клиента."""
+        '''
+        Client handler.
+
+        :param conn: Connection that needs to be handled
+        :type conn: socket.connection
+        :param addr: Connection's address that needs to be handled
+        :type addr: Tuple(str, int)
+        '''
         try:
             while True:
                 try:
@@ -55,12 +103,12 @@ class P2PSocket:
                     while True:
                         chunk = conn.recv(4096)
                         if not chunk:
-                            break  # Соединение закрыто
+                            break  # Connection closed
                         chunks.append(chunk)
                         if len(chunk) < 4096:
-                            break # последний чанк+m
+                            break # Last chunk
                     if not chunks:
-                        break # Выходим из цикла обработки, если нет данных
+                        break # Leaving handle cycle if no data
 
                     data = b"".join(chunks)
                     print(data)
@@ -90,11 +138,11 @@ class P2PSocket:
                     elif data.startswith(b"NEW_MESSAGE"):
                         pass
 
-                    else:  # Простое сообщение
+                    else:  # Simple message
                         self.broadcast(data, conn)
 
                 except ConnectionResetError as e:
-                    break # Выходим из цикла обработки клиента
+                    break # Leaving handler cycle
                 except socket.error as e:
                     log.error(f"Error receiving data from {addr}: {e}")
                     break
@@ -107,9 +155,15 @@ class P2PSocket:
             conn.close()
 
     def broadcast(self, message: bytes, sender_conn):
-        """Отправка сообщения всем подключенным клиентам, кроме отправителя."""
+        """
+        Broadcastin message to everyone, except sender.
+
+        :param message: Message that needs to be broadcasted
+        :type message: bytes
+        :param sender_conn: Connection of sender
+        :type sender_conn: socket.connection
+        """
         for conn, _ in self.connections:
-            print(conn)
             if conn != sender_conn:
                 try:
                     conn.sendall(zlib.compress(message))
@@ -117,7 +171,16 @@ class P2PSocket:
                     log.error(f"Error broadcasting to a connection: {e}")
 
     def connect_to_peer(self, peer_host: str, peer_port: int):
-        """Подключение к другому узлу."""
+        '''
+        Connecting to another peer
+
+        :param peer_host: Another peer's host
+        :type peer_host: str
+        :param peer_port: Another peer's port
+        :type peer_port: int
+        :return: Another peer's connection or None
+        :rtype: socket.connection or None
+        '''
         try:
             conn = socket.create_connection((peer_host, peer_port))
             if len(self.connections) >= self.max_connections:
@@ -137,7 +200,14 @@ class P2PSocket:
             return None
 
     def get_connection(self, peer_host: str):
-        """Возвращает существующее соединение или None, если его нет."""
+        '''
+        Returns existing connection or None if there is no one.
+
+        :param peer_host: Another peer's host
+        :type peer_host: str
+        :return: Another peer's socket connection or none
+        :rtype: socket.connection or None
+        '''
         for conn, addr in self.connections:
             if addr[0] == peer_host:
                 return conn

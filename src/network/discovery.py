@@ -20,19 +20,28 @@ def discover_peers(
     broadcast_interval: int = 1,
 ) -> Set[Tuple[str, int]]:
     """
-    Обнаружение новых узлов в сети через UDP широковещательные сообщения.
+    New peers discovery in network through UDP broadcasting messages
 
-    :param local_host: Локальный хост узла
-    :param local_port: Локальный порт узла для приема сообщений
-    :param broadcast_port: Порт для широковещательной рассылки
-    :param broadcast_interval: Интервал отправки широковещательных сообщений
-    :param timeout: таймаут
+    :param local_host: Local peer host
+    :type local_host: str
+    :param local_port: Local peer port
+    :type local_port: int
+    :param broadcast_port: Broadcasting port
+    :type broadcasting port: int
+    :param username: Local peer's username
+    :type username: str
+    :param public_key: Local peer's DH public key
+    :type public_key: str
+    :param broadcast_interval: Broadcasting messages interval
+    :type broadcast_interval: int
+    :return: Discovered peers
+    :rtype: set
     """
     peers = set()
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
     def listen_for_broadcast():
-        """Слушает широковещательные сообщения для обнаружения новых узлов."""
+        """Listens for broadcasting messages to find new peers"""
         with sock as udp_socket:
             udp_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
@@ -73,16 +82,16 @@ def discover_peers(
                     log.error(f"Error decoding broadcast message: {e}")
 
     def send_broadcast():
-        """
-        Отправляет широковещательное сообщение
-        для оповещения о своем узле.
-        """
+        """Sends broadcasting messages to remined others about its peer."""
+        # Create udp socket
         with sock as udp_socket:
             udp_socket.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
 
             message = {"host": local_host, "port": local_port,
                        "public_key": public_key, "username": username}
             broadcast_address = ("<broadcast>", broadcast_port)
+
+            # Compressing message so it is 100% delievered
             compressed = zlib.compress(json.dumps(message, ensure_ascii=False)
                                       .encode())
 
@@ -95,7 +104,7 @@ def discover_peers(
                 finally:
                     time.sleep(
                         broadcast_interval
-                    )  # Повторение каждые broadcast_interval секунд
+                    )  # Repeat every broadcast_interval
 
     threading.Thread(target=listen_for_broadcast, daemon=True).start()
     threading.Thread(target=send_broadcast, daemon=True).start()

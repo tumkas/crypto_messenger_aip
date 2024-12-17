@@ -1,3 +1,4 @@
+'''Module that handles blockchain syncronization'''
 import json5 as json
 from utils.logger import Logger
 from blockchain.transaction import Transaction
@@ -8,12 +9,26 @@ log = Logger("sync")
 
 
 class SyncManager:
+    '''
+    Class that handles syncronization
+
+    :ivar p2p_network: Peer's P2P Network
+    :type p2p_network: P2PNetwork
+    :ivar blockchain: Peer's local blockchain
+    :type blockchain: Blockchain
+    :ivar sync_interval: Syncronization interval
+    :type sync_interval: int
+    '''
     def __init__(self, p2p_network, blockchain, sync_interval: int = 5):
         """
-        Инициализация менеджера синхронизации.
+        Intialization of syncronization manager
 
-        :param p2p_network: Экземпляр P2PNetwork для взаимодействия с узлами
-        :param sync_interval: интервал синхронизации
+        :ivar p2p_network: Peer's P2P Network
+        :type p2p_network: P2PNetwork
+        :ivar blockchain: Peer's local blockchain
+        :type blockchain: Blockchain
+        :ivar sync_interval: Syncronization interval
+        :type sync_interval: int
         """
         self.p2p_network = p2p_network
         self.blockchain = blockchain  # Локальная копия блокчейна
@@ -21,10 +36,12 @@ class SyncManager:
 
     def request_chain(self, peer_host: str, peer_port: int) -> None:
         """
-        Запрашивает копию блокчейна у указанного узла.
+        Requests blockchain copy from given peer
 
-        :param peer_host: Хост узла
-        :param peer_port: Порт узла
+        :param peer_host: peer's host
+        :type peer_host: str
+        :param peer_port: peer's port
+        :type peer_port: int
         """
         try:
             conn = self.p2p_network.node.get_connection(peer_host)
@@ -41,9 +58,10 @@ class SyncManager:
 
     def merge_chain(self, received_chain: list) -> None:
         """
-        Обновляет локальный блокчейн, если полученная цепочка длиннее и валидна.
+        Updates local blockchain if recieved chain is longer and valid
 
-        :param received_chain: Полученная цепочка блоков
+        :param received_chain: Recieved chain
+        :type recieved_chain: List[Block]
         """
         if not received_chain:
             log.info("Received empty chain")
@@ -60,9 +78,12 @@ class SyncManager:
 
     def broadcast_block(self, block: Block, conn) -> None:
         """
-        Рассылает новый блок всем известным узлам.
+        Broadcast new block every known peer.
 
-        :param block: Новый блок для добавления в цепочку
+        :param block: New block to add to a chain
+        :type block: Block
+        :param conn: Sender connection
+        :type conn: socket.connection or None
         """
         if not block:
             log.debug("Cannot broadcast empty block")
@@ -74,6 +95,12 @@ class SyncManager:
         self.p2p_network.broadcast_message(b"NEW_BLOCK" + block_bytes, conn)
 
     def broadcast_chain(self, conn) -> None:
+        '''
+        Broadcast chain to peer
+
+        :param conn: Sender connection
+        :type conn: socket.connection
+        '''
         if not self.blockchain.chain:
             log.debug("Cannot broadcast empty chain")
             return
@@ -82,11 +109,10 @@ class SyncManager:
         chain_bytes = json.dumps([block.to_dict() for block in self.blockchain.chain],
                                  ensure_ascii=False).encode()
         self.p2p_network.broadcast_message(b"BLOCKCHAIN" + chain_bytes, conn)
-        print("broadcasted")
 
     def start_sync_loop(self) -> None:
         """
-        Цикл автоматической синхронизации с известными узлами.
+        Automated syncronization cycle with known peers
         """
 
         log.debug("Starting synchronization loop...")
@@ -100,7 +126,12 @@ class SyncManager:
 
     def handle_new_block(self, block_data: bytes, conn) -> None:
         """
-        Обрабатывает новый блок, полученный от другого узла.
+        Handles new block, recieved from other peer
+
+        :param block_data: Block information
+        :type block_data: bytes
+        :param conn: Sender connection
+        :type conn: socket.connection
         """
         try:
             block_dict = json.loads(block_data.decode())
@@ -143,7 +174,12 @@ class SyncManager:
 
     def handle_new_transaction(self, transaction_data: bytes, conn) -> None:
         """
-        Обрабатывает новую транзакцию, полученную от другого узла.
+        Handles new transaction, recieved from another peer.
+
+        :param transaction_data: New transaction info
+        :type transaction_data: bytes
+        :param conn: Sender connection
+        :type conn: socket.connection
         """
         try:
             transaction_string = transaction_data.decode()
@@ -182,8 +218,13 @@ class SyncManager:
             log.error(f"Error during transaction handling: {e}")
 
     def handle_blockchain(self, blockchain):
+        """
+        Handles new blockchain, recieved from another peer.
+
+        :param blockchain: New blockchain
+        :type blockchain: Blockchain
+        """
         blockchain = json.loads(blockchain.decode())
-        print(blockchain)
         chain = []
 
         for block_data in blockchain:
