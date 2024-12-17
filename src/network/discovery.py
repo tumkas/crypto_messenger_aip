@@ -1,3 +1,4 @@
+'''Discovery module that handles peer discovery and beoadcast peers'''
 
 import socket
 import threading
