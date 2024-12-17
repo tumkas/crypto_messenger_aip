@@ -103,11 +103,15 @@ class Ui_BlockChain(object):
         self.renameChatAction = QtWidgets.QAction("Rename chat", self.centralwidget)
         self.deleteChatAction = QtWidgets.QAction("Delete chat", self.centralwidget)
         self.changeNicknameAction = QtWidgets.QAction("Change username", self.centralwidget)
+        self.showPeersAction = QtWidgets.QAction("Show Peers", self.centralwidget)
+
 
         self.optionsMenu.addAction(self.addChatAction)
         self.optionsMenu.addAction(self.renameChatAction)
         self.optionsMenu.addAction(self.deleteChatAction)
         self.optionsMenu.addAction(self.changeNicknameAction)
+        self.optionsMenu.addAction(self.showPeersAction)
+
 
         self.options_Button.setMenu(self.optionsMenu)
 
