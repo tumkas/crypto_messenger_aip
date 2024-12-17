@@ -1,4 +1,3 @@
-
 import socket
 import threading
 import time
@@ -83,7 +82,6 @@ def discover_peers(
 
     def send_broadcast():
         """Sends broadcasting messages to remined others about its peer."""
-        # Create udp socket
         with sock as udp_socket:
             udp_socket.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
 
@@ -91,7 +89,6 @@ def discover_peers(
                        "public_key": public_key, "username": username}
             broadcast_address = ("<broadcast>", broadcast_port)
 
-            # Compressing message so it is 100% delievered
             compressed = zlib.compress(json.dumps(message, ensure_ascii=False)
                                       .encode())
 
@@ -104,7 +101,7 @@ def discover_peers(
                 finally:
                     time.sleep(
                         broadcast_interval
-                    )  # Repeat every broadcast_interval
+                    )
 
     threading.Thread(target=listen_for_broadcast, daemon=True).start()
     threading.Thread(target=send_broadcast, daemon=True).start()
