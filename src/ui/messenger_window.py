@@ -149,10 +149,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
                 time=time, username=self.username, text=text
             )
 
-            current_html = self.message_area.toHtml()
-            new_html = current_html + bubble
             username = self.currentChatLabel.text()
-            self.message_area.setHtml(new_html)
             self.messagePrint_area.clear()
             self.smsg(username, text, self)
 
@@ -173,6 +170,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
             self.message_area.setHtml(new_html)
 
     def handle_messages(self, my_key, messages, encryptor):
+        current_html = self.message_area.toHtml()
         for message in messages:
             time_mes = datetime.fromtimestamp(float(message.timestamp)).strftime("%H:%M")
             if my_key == message.sender:
@@ -187,11 +185,11 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
                     text=encryptor.decrypt(bytes.fromhex(message.content))
                 )
 
-            self.message_area.clear()
-            current_html = self.message_area.toHtml()
-            new_html = current_html + bubble
-            self.message_area.setHtml(new_html)
-            self.messagePrint_area.clear()
+            current_html += bubble
+
+        self.message_area.clear()
+        self.message_area.setHtml(current_html)
+        self.messagePrint_area.clear()
 
 
     def load_message_bubbles(self, file_path):
