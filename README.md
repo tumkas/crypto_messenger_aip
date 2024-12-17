@@ -23,9 +23,6 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/tumkas/crypto_messenger_aip">
-    <img src="images/logo.jpg" alt="Logo" width="80" height="80">
-  </a>
 
 <h3 align="center">Crypto Messenger</h3>
 
@@ -75,8 +72,6 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://github.com/tumkas/crypto_messenger_aip/blob/dev/images/logo.jpg)
 
 The first really working 100% secure messenger working based on a blockchain and sockets. All your messages are stored securely and all no one except you and sender can see them. Cool!!!
 
