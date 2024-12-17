@@ -55,7 +55,7 @@ class Transaction:
         self.sign_public_key = sign_public_key
         self.signature = signature
 
-    def to_dict(self) -> Dict[str, str]:
+    def to_dict(self):
         """
         Returns a dictionary representation of the transaction's data.
 
