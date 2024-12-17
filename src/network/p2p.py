@@ -52,6 +52,8 @@ class P2PNetwork:
         username: str,
         public_key: str,
         signature_manager,
+        app,
+        encryptor,
         sync_interval: int = 5,
         broadcast_interval: int = 1,
         max_connections: int = 5
@@ -93,8 +95,10 @@ class P2PNetwork:
         self.broadcast_port = broadcast_port
         self.peers = set()  # Список известных узлов
         self.sync_interval = sync_interval
+        self.app = app
+        self.encryptor = encryptor
         self.broadcast_interval = broadcast_interval
-        self.sync_manager = sync_manager(self, self.blockchain, self.sync_interval)
+        self.sync_manager = sync_manager(self, self.blockchain, self.app, self.ecncryptor, self.sync_interval)
         self.signature_manager = signature_manager
         self.node = node(self.host, self.port, self.blockchain, self.sync_manager, self.signature_manager, max_connections)
 

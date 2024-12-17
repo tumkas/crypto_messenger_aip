@@ -19,7 +19,7 @@ class SyncManager:
     :ivar sync_interval: Syncronization interval
     :type sync_interval: int
     '''
-    def __init__(self, p2p_network, blockchain, sync_interval: int = 5):
+    def __init__(self, p2p_network, blockchain, app, encryptor, sync_interval: int = 5):
         """
         Intialization of syncronization manager
 
@@ -33,6 +33,8 @@ class SyncManager:
         self.p2p_network = p2p_network
         self.blockchain = blockchain  # Локальная копия блокчейна
         self.sync_interval = sync_interval
+        self.app = app
+        self.encryptor = encryptor
 
     def request_chain(self, peer_host: str, peer_port: int) -> None:
         """
@@ -210,6 +212,7 @@ class SyncManager:
             log.debug(f"Received transaction {transaction.calculate_hash()}")
             if self.blockchain.is_transaction_valid(transaction):
                 self.blockchain.pending_transactions.append(transaction)
+                self.app.handle_messages(self.p2p_network.public_key, self.blockchain.pending_transactions, self.encryptor)
                 self.p2p_network.broadcast_transaction(transaction, conn)
                 log.info(f"Added new transaction from network")
             else:
