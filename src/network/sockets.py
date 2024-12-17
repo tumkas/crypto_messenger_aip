@@ -111,8 +111,6 @@ class P2PSocket:
                         break # Leaving handle cycle if no data
 
                     data = b"".join(chunks)
-                    print(data)
-
                     data = zlib.decompress(data)
 
                     log.debug(f"Received from {addr}: {data[:100].decode()}")

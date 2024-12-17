@@ -14,7 +14,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
 
     #work_exemp = None
 
-    def __init__(self, username: str, cbu, smsg, peers):
+    def __init__(self, username: str, cbu, smsg, rcvmsg, peers):
         """
         Initializes the messenger application, sets up the UI, loads chat names,
         styles, and message templates, and connects signals to their respective slots
@@ -35,6 +35,8 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         self.peers = peers
         self.cbu = cbu
         self.smsg = smsg
+        self.rcvmsg = rcvmsg
+        self.messages = rcvmsg
         # self.rmvcn = rmvcn
         # self.connections = connections
         self.chat_names = [peer[2] for peer in self.peers]
@@ -69,6 +71,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         if ok and text.strip():
             if self.cbu(text.strip()):
                 self.chat_names.append(text.strip())
+            messages = self.rcvmsg()
             self.load_chats()
 
     def delete_chat(self):
@@ -153,7 +156,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
             username = self.currentChatLabel.text()
             self.message_area.setHtml(new_html)
             self.messagePrint_area.clear()
-            self.smsg(username, text)
+            self.smsg(username, text, self)
 
     def receive_message(self, sender, text):
         """
@@ -170,6 +173,27 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
             current_html = self.message_area.toHtml()
             new_html = current_html + bubble
             self.message_area.setHtml(new_html)
+
+    def handle_messages(self, my_key, messages, encryptor):
+        for message in messages:
+            time_mes = datetime.fromtimestamp(message.timestamp).strftime("%H:%M")
+            if my_key == message.sender:
+                bubble = self.templates["Sender Bubble"].format(
+                    time=time_mes, username=self.username,
+                    text=encryptor.decrypt(message.content.encode())
+                )
+            else:
+                reciever = [peer for peer in self.peers if peer[3] == message.sender]
+                bubble = self.templates["Receiver Bubble"].format(
+                    time=time_mes, username=reciever[0][2],
+                    text=encryptor.decrypt(message.content.encode())
+                )
+
+            current_html = self.message_area.toHtml()
+            new_html = current_html + bubble
+            self.message_area.setHtml(new_html)
+            self.messagePrint_area.clear()
+
 
     def load_message_bubbles(self, file_path):
         """

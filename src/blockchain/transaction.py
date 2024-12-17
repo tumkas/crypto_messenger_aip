@@ -101,11 +101,7 @@ class Transaction:
 
         hash_bytes = self.calculate_hash().encode()
         self.signature = signer.sign(
-            hash_bytes,
-            padding.PSS(
-                mgf=padding.MGF1(hashes.SHA256()), salt_length=padding.PSS.MAX_LENGTH
-            ),
-            hashes.SHA256(),
+            hash_bytes
         )
 
     def is_valid(self, public_key: bytes) -> bool:

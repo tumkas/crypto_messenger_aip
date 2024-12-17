@@ -112,25 +112,46 @@ def main():
             log.error("Couldnt find user")
             return False
 
-    def send_message(username, content):
+
+    def get_messages(peer1, peer2):
+        messages = []
+        for block in blockchain.chain:
+            for transaction in block.transactions:
+                if (transaction.sender == peer1[3] and \
+                    transaction.recipient == peer2[3]) or \
+                    (transaction.sender == peer2[3] and \
+                    transaction.recipient == peer1[3]):
+                    messages.append(transaction)
+        for transaction in blockchain.pending_transactions:
+            if (transaction.sender == peer1[3] and \
+                transaction.recipient == peer2[3]) or \
+                (transaction.sender == peer2[3] and \
+                transaction.recipient == peer1[3]):
+                messages.append(transaction)
+
+        return messages
+
+    def send_message(username, content, app):
         recipient = None
         for peer in p2p_network.peers:
             if peer[2] == username:
-                recipient = peer[3]
+                recipient = peer
                 break
         if recipient is None:
             print(f"User {username} not found")
 
-        shared_key = get_shared_key(recipient)
+        shared_key = get_shared_key(recipient[3])
         if shared_key:
             encryptor = SymmetricEncryption(shared_key, algorithm="AES", mode="CBC")
             encrypted_content = encryptor.encrypt(content)
             if encrypted_content:
                 log.debug("Creating signed encrypted transaction")
-                transaction = Transaction(dh_public_key, recipient, 0, encrypted_content.hex(), signature_manager.get_public_key())
-                transaction.sign_transaction(signature_manager.get_private_key())
+                transaction = Transaction(dh_public_key, recipient[3], 0, encrypted_content.hex(), signature_manager.get_public_key())
+                transaction.sign_transaction(signature_manager)
                 blockchain.add_transaction(transaction)
                 p2p_network.broadcast_transaction(transaction, None)
+                app.handle_messages(dh_public_key,
+                    get_messages((host, port, username, dh_public_key), recipient))
             else:
                 log.error("Message was not encrypted")
         else:
