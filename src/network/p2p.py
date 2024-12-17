@@ -94,7 +94,7 @@ class P2PNetwork:
         self.peers = set()  # Список известных узлов
         self.sync_interval = sync_interval
         self.broadcast_interval = broadcast_interval
-        self.sync_manager = sync_manager(self, self.blockchain, self.app, self.ecncryptor, self.sync_interval)
+        self.sync_manager = sync_manager(self, self.blockchain, self.sync_interval)
         self.signature_manager = signature_manager
         self.node = node(self.host, self.port, self.blockchain, self.sync_manager, self.signature_manager, max_connections)
 
