@@ -1,0 +1,939 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
+<html>
+  
+
+  <head>
+    
+    <title>src.blockchain.transaction.Transaction</title>
+    <meta name="generator" content="pydoctor 24.11.0"> 
+        
+    </meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+    
+</head>
+
+  <body>
+
+    
+
+    <nav class="navbar navbar-default mainnavbar">
+      
+  
+  <div class="container-fluid">
+
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+        <span class="navbar-brand">
+          src <a href="index.html">API Documentation</a>
+        </span>
+
+        <a href="moduleIndex.html">
+          Modules
+        </a>
+
+        <a href="classIndex.html">
+          Classes
+        </a>
+
+        <a href="nameIndex.html">
+          Names
+        </a>
+
+        <div id="search-box-container">
+          <div class="input-group">
+            <input id="search-box" type="search" name="search-query" placeholder="Search..." aria-label="Search" minlength="2" class="form-control" autocomplete="off" />
+            
+            <span class="input-group-btn">
+              <a style="display: none;" class="btn btn-default" id="search-clear-button" title="Clear" onclick="clearSearch()"><img src="fonts/x-circle.svg" alt="Clear" /></a>
+              <a class="btn btn-default" id="apidocs-help-button" title="Help" href="apidocs-help.html"><img src="fonts/info.svg" alt="Help" /></a>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="search-results-container" style="display: none;">
+        
+        <div id="search-buttons">
+          <span class="label label-default" id="search-docstrings-button">
+          <label class="checkbox-inline">
+            <input type="checkbox" id="toggle-search-in-docstrings-checkbox" value="false" onclick="toggleSearchInDocstrings()">
+              search in docstrings
+            </input>
+          </label>
+          </span>
+          
+        </div>
+        
+        <noscript>
+            <h1>Cannot search: JavaScript is not supported/enabled in your browser.</h1>
+        </noscript>
+
+        <div id="search-status"> </div>
+
+        <div class="warning" id="search-warn-box" style="display: none;">
+          <p class="rst-last"><span id="search-warn"></span></p>
+        </div>
+
+        <table id="search-results">
+          <!-- Filled dynamically by JS -->
+        </table>
+        
+        <div style="margin-top: 10px;">
+          <p>For more information on the search, visit the <a href="apidocs-help.html#rst-search">help page</a>.</p>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+</nav>
+    
+    <div class="container-fluid">
+
+      <!-- Side navigation -->
+      <div class="sidebarcontainer" style="display: none;">
+        
+        <div class="sidebar"><nav class="sidebar">
+  
+
+  <div>
+
+      <div class="thingTitle">
+        <span>Class</span>
+        <code class="thisobject"><a href="src.blockchain.transaction.Transaction.html" class="internal-link" title="This class"><wbr></wbr>Transaction</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        
+        
+
+        <div class="childrenKindTitle">Methods</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#__init__" class="internal-link" title="src.blockchain.transaction.Transaction.__init__">__init__</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#calculate_hash" class="internal-link" title="src.blockchain.transaction.Transaction.calculate_hash">calculate<wbr></wbr>_hash</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#is_valid" class="internal-link" title="src.blockchain.transaction.Transaction.is_valid">is<wbr></wbr>_valid</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#sign_transaction" class="internal-link" title="src.blockchain.transaction.Transaction.sign_transaction">sign<wbr></wbr>_transaction</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#to_dict" class="internal-link" title="src.blockchain.transaction.Transaction.to_dict">to<wbr></wbr>_dict</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+
+        <div class="childrenKindTitle">Attributes</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#amount" class="internal-link" title="src.blockchain.transaction.Transaction.amount">amount</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#Any%20content" class="internal-link" title="src.blockchain.transaction.Transaction.Any content"><wbr></wbr>Any content</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#bytes%20recipient" class="internal-link" title="src.blockchain.transaction.Transaction.bytes recipient">bytes recipient</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#bytes%20sender" class="internal-link" title="src.blockchain.transaction.Transaction.bytes sender">bytes sender</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#bytes%20sign_public_key" class="internal-link" title="src.blockchain.transaction.Transaction.bytes sign_public_key">bytes sign<wbr></wbr>_public<wbr></wbr>_key</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#bytes%20signature" class="internal-link" title="src.blockchain.transaction.Transaction.bytes signature">bytes signature</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#content" class="internal-link" title="src.blockchain.transaction.Transaction.content">content</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#float%20amount" class="internal-link" title="src.blockchain.transaction.Transaction.float amount">float amount</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#recipient" class="internal-link" title="src.blockchain.transaction.Transaction.recipient">recipient</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#sender" class="internal-link" title="src.blockchain.transaction.Transaction.sender">sender</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#sign_public_key" class="internal-link" title="src.blockchain.transaction.Transaction.sign_public_key">sign<wbr></wbr>_public<wbr></wbr>_key</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#signature" class="internal-link" title="src.blockchain.transaction.Transaction.signature">signature</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+        
+      </div>
+  </div><div>
+
+      <div class="thingTitle">
+        <span>Module</span>
+        <code><a href="src.blockchain.transaction.html" class="internal-link" title="The parent of this class">transaction</a></code> 
+      </div>
+      
+      <div>
+        
+
+        
+         
+
+        <div class="childrenKindTitle">Classes</div>
+        <ul>
+    
+    <li class=" thisobject">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="src.blockchain.transaction.Transaction.html" class="internal-link" title="src.blockchain.transaction.Transaction"><wbr></wbr>Transaction</a></code>
+            </div>
+        
+
+    </li>
+</ul>
+
+        
+         
+
+        
+         
+
+        <div class="childrenKindTitle">Variables</div>
+        <ul>
+    
+    <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="src.blockchain.transaction.html#log" class="internal-link" title="src.blockchain.transaction.log">log</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
+
+        
+         
+        
+      </div>
+  </div>
+
+</nav>
+        </div>
+        <div id="collapseSideBar">
+          <a class="btn btn-link" onclick="toggleSideBarCollapse()" title="Toggle Sidebar Collapse">
+          </a>
+        </div> 
+        <script src="sidebartoggle.js" type="text/javascript"></script>
+       
+      </div>
+
+      <div id="main" class="">
+        
+
+        
+
+        <div class="page-header">
+          <h1 class="class"><code><code><a href="index.html" class="internal-link">src</a></code><wbr></wbr>.<code><a href="src.blockchain.html" class="internal-link" title="src.blockchain">blockchain</a></code><wbr></wbr>.<code><a href="src.blockchain.transaction.html" class="internal-link" title="src.blockchain.transaction">transaction</a></code><wbr></wbr>.<code><a href="src.blockchain.transaction.Transaction.html" class="internal-link" title="src.blockchain.transaction.Transaction">Transaction</a></code></code></h1>
+          <div id="showPrivate">
+            <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+          </div>
+        </div>
+
+        <div class="categoryHeader">
+          class documentation
+        </div>
+
+        <div class="extrasDocstring">
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">Transaction</span>:</code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="src.blockchain.transaction.Transaction.__init__">Transaction(sender, recipient, amount, content, ...)</a></code></p>
+          <p><a href="classIndex.html#src.blockchain.transaction.Transaction">View In Hierarchy</a></p>
+        </div>
+
+        <div class="moduleDocstring">
+          <div><p>Defines a transaction and its content.</p></div>
+        </div>
+
+        <div id="splitTables">
+          <table class="children sortable" id="id10">
+  
+  
+  <tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#__init__" class="internal-link" title="src.blockchain.transaction.Transaction.__init__">__init__</a></code></td>
+    <td>Initializes a new Transaction instance.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#calculate_hash" class="internal-link" title="src.blockchain.transaction.Transaction.calculate_hash">calculate<wbr></wbr>_hash</a></code></td>
+    <td>Calculates the SHA-256 hash of the transaction's content.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#is_valid" class="internal-link" title="src.blockchain.transaction.Transaction.is_valid">is<wbr></wbr>_valid</a></code></td>
+    <td>Checks if the transaction's signature is valid using the sender's public key.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#sign_transaction" class="internal-link" title="src.blockchain.transaction.Transaction.sign_transaction">sign<wbr></wbr>_transaction</a></code></td>
+    <td>Signs the transaction using the sender's private key.</td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#to_dict" class="internal-link" title="src.blockchain.transaction.Transaction.to_dict">to<wbr></wbr>_dict</a></code></td>
+    <td>Returns a dictionary representation of the transaction's data.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#amount" class="internal-link" title="src.blockchain.transaction.Transaction.amount">amount</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#Any%20content" class="internal-link" title="src.blockchain.transaction.Transaction.Any content"><wbr></wbr>Any content</a></code></td>
+    <td>Additional content or comment associated with the transaction.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#bytes%20recipient" class="internal-link" title="src.blockchain.transaction.Transaction.bytes recipient">bytes recipient</a></code></td>
+    <td>The recipient of the transaction.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#bytes%20sender" class="internal-link" title="src.blockchain.transaction.Transaction.bytes sender">bytes sender</a></code></td>
+    <td>The initiator of the transaction.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#bytes%20sign_public_key" class="internal-link" title="src.blockchain.transaction.Transaction.bytes sign_public_key">bytes sign<wbr></wbr>_public<wbr></wbr>_key</a></code></td>
+    <td>The public key of the sender for verification.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#bytes%20signature" class="internal-link" title="src.blockchain.transaction.Transaction.bytes signature">bytes signature</a></code></td>
+    <td>The encrypted signature to secure the transaction.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#content" class="internal-link" title="src.blockchain.transaction.Transaction.content">content</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#float%20amount" class="internal-link" title="src.blockchain.transaction.Transaction.float amount">float amount</a></code></td>
+    <td>The amount of coins to be transferred.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#recipient" class="internal-link" title="src.blockchain.transaction.Transaction.recipient">recipient</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#sender" class="internal-link" title="src.blockchain.transaction.Transaction.sender">sender</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#sign_public_key" class="internal-link" title="src.blockchain.transaction.Transaction.sign_public_key">sign<wbr></wbr>_public<wbr></wbr>_key</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#signature" class="internal-link" title="src.blockchain.transaction.Transaction.signature">signature</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+          
+
+            
+        </div>
+
+        <div id="childList">
+          <div class="basemethod">
+  
+  
+  <a name="src.blockchain.transaction.Transaction.__init__">
+    
+  </a>
+  <a name="__init__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, sender: <code>bytes</code> = None, recipient: <code>bytes</code> = None, amount: <code>float</code> = 0, content: <code>Any</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string"></span><span class="rst-variable-quote">'</span>, sign_public_key: <code>bytes</code> = None, signature: <code>bytes</code> = None)</span>:
+    
+    <a class="headerLink" href="#__init__" title="src.blockchain.transaction.Transaction.__init__">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Initializes a new Transaction instance.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sender:</span><code>bytes</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">recipient:</span><code>bytes</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">amount:</span><code>float</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">content:</span><code>Any</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sign<wbr></wbr>_public<wbr></wbr>_key:</span><code>bytes</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">signature:</span><code>bytes</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">bytes sender</span></td><td class="fieldArgDesc">The initiator of the transaction.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">bytes recipient</span></td><td class="fieldArgDesc">The recipient of the transaction.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">float amount</span></td><td class="fieldArgDesc">The amount of coins to be transferred.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg"><wbr></wbr>Any content</span></td><td class="fieldArgDesc">Additional content or comment associated with the transaction.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">bytes sign<wbr></wbr>_public<wbr></wbr>_key</span></td><td class="fieldArgDesc">The public key of the sender for verification.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">bytes signature</span></td><td class="fieldArgDesc">The encrypted signature to secure the transaction.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="src.blockchain.transaction.Transaction.calculate_hash">
+    
+  </a>
+  <a name="calculate_hash">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">calculate_hash</span><span class="function-signature">(self) -&gt; <code>str</code></span>:
+    
+    <a class="headerLink" href="#calculate_hash" title="src.blockchain.transaction.Transaction.calculate_hash">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Calculates the SHA-256 hash of the transaction's content.</p>
+<p>The signature is excluded from the hash calculation.</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer">str</td><td class="fieldArgDesc">The hash of the transaction.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="src.blockchain.transaction.Transaction.is_valid">
+    
+  </a>
+  <a name="is_valid">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">is_valid</span><span class="function-signature">(self, public_key: <code>bytes</code>) -&gt; <code>bool</code></span>:
+    
+    <a class="headerLink" href="#is_valid" title="src.blockchain.transaction.Transaction.is_valid">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Checks if the transaction's signature is valid using the sender's public key.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">public<wbr></wbr>_key:</span><code>bytes</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">bytes public<wbr></wbr>_key</span></td><td class="fieldArgDesc">The public key to verify the signature.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer">bool</td><td class="fieldArgDesc">True if the signature is valid, False otherwise.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="src.blockchain.transaction.Transaction.sign_transaction">
+    
+  </a>
+  <a name="sign_transaction">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">sign_transaction</span><span class="function-signature">(self, signer: <code>rsa.RSAPrivateKey</code>)</span>:
+    
+    <a class="headerLink" href="#sign_transaction" title="src.blockchain.transaction.Transaction.sign_transaction">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Signs the transaction using the sender's private key.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">signer:</span><code>rsa.RSAPrivateKey</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">rsa<wbr></wbr>.<wbr></wbr>RSAPrivate<wbr></wbr>Key signer</span></td><td class="fieldArgDesc">The private key used to sign the transaction.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Raises</td></tr><tr><td class="fieldArgContainer"><code>ValueError</code></td><td>If the transaction does not have a sender or recipient.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="src.blockchain.transaction.Transaction.to_dict">
+    
+  </a>
+  <a name="to_dict">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">to_dict</span><span class="function-signature">(self) -&gt; <code>dict[<wbr></wbr>str, <wbr></wbr>str]</code></span>:
+    
+    <a class="headerLink" href="#to_dict" title="src.blockchain.transaction.Transaction.to_dict">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Returns a dictionary representation of the transaction's data.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer">Dict[str, str]</td><td class="fieldArgDesc">A dictionary containing the transaction's data.</td></tr></table></div>
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="src.blockchain.transaction.Transaction.amount">
+    
+  </a>
+  <a name="amount">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">amount</span> =
+    
+    <a class="headerLink" href="#amount" title="src.blockchain.transaction.Transaction.amount">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="src.blockchain.transaction.Transaction.Any content">
+    
+  </a>
+  <a name="Any content">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">Any content</span> =
+    
+    <a class="headerLink" href="#Any content" title="src.blockchain.transaction.Transaction.Any content">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Additional content or comment associated with the transaction.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="src.blockchain.transaction.Transaction.bytes recipient">
+    
+  </a>
+  <a name="bytes recipient">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">bytes recipient</span> =
+    
+    <a class="headerLink" href="#bytes recipient" title="src.blockchain.transaction.Transaction.bytes recipient">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>The recipient of the transaction.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="src.blockchain.transaction.Transaction.bytes sender">
+    
+  </a>
+  <a name="bytes sender">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">bytes sender</span> =
+    
+    <a class="headerLink" href="#bytes sender" title="src.blockchain.transaction.Transaction.bytes sender">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>The initiator of the transaction.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="src.blockchain.transaction.Transaction.bytes sign_public_key">
+    
+  </a>
+  <a name="bytes sign_public_key">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">bytes sign_public_key</span> =
+    
+    <a class="headerLink" href="#bytes sign_public_key" title="src.blockchain.transaction.Transaction.bytes sign_public_key">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>The public key of the sender for verification.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="src.blockchain.transaction.Transaction.bytes signature">
+    
+  </a>
+  <a name="bytes signature">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">bytes signature</span> =
+    
+    <a class="headerLink" href="#bytes signature" title="src.blockchain.transaction.Transaction.bytes signature">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>The encrypted signature to secure the transaction.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="src.blockchain.transaction.Transaction.content">
+    
+  </a>
+  <a name="content">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">content</span> =
+    
+    <a class="headerLink" href="#content" title="src.blockchain.transaction.Transaction.content">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="src.blockchain.transaction.Transaction.float amount">
+    
+  </a>
+  <a name="float amount">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">float amount</span> =
+    
+    <a class="headerLink" href="#float amount" title="src.blockchain.transaction.Transaction.float amount">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>The amount of coins to be transferred.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="src.blockchain.transaction.Transaction.recipient">
+    
+  </a>
+  <a name="recipient">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">recipient</span> =
+    
+    <a class="headerLink" href="#recipient" title="src.blockchain.transaction.Transaction.recipient">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="src.blockchain.transaction.Transaction.sender">
+    
+  </a>
+  <a name="sender">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">sender</span> =
+    
+    <a class="headerLink" href="#sender" title="src.blockchain.transaction.Transaction.sender">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="src.blockchain.transaction.Transaction.sign_public_key">
+    
+  </a>
+  <a name="sign_public_key">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">sign_public_key</span> =
+    
+    <a class="headerLink" href="#sign_public_key" title="src.blockchain.transaction.Transaction.sign_public_key">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="src.blockchain.transaction.Transaction.signature">
+    
+  </a>
+  <a name="signature">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">signature</span> =
+    
+    <a class="headerLink" href="#signature" title="src.blockchain.transaction.Transaction.signature">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div>
+        </div>
+      
+      </div>
+    </div>
+
+    <footer class="navbar navbar-default">
+
+  
+  <div class="container-fluid">
+    <a href="index.html">API Documentation</a> for src,
+  generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
+    24.11.0 at 2024-12-17 11:07:16.
+  </div>
+
+  <!-- Search related scripts needs to be loaded at the end of HTML 
+    parsing not to introduce overhead and display HTML data asap -->
+  <script src="ajax.js" type="text/javascript"></script>
+  <script src="searchlib.js" type="text/javascript"></script>
+  <script src="search.js" type="text/javascript"></script>
+
+</footer>
+  
+    <script src="pydoctor.js" type="text/javascript"></script>
+
+  </body>
+</html>
