@@ -13,9 +13,16 @@ from cryptography.hazmat.primitives.serialization import (
 )
 from cryptography import exceptions
 from typing import Optional
-from utils.logger import Logger
+import os
 
-log = Logger("signatures")
+WORK_MODE = os.getenv("WORK_MODE")
+
+if WORK_MODE == 'TESTS':
+    from src.crypto.test_logger import Logger
+    log = Logger("signatures")
+else:
+    from utils.logger import Logger
+    log = Logger("signatures")
 
 
 class DigitalSignature:
@@ -70,7 +77,7 @@ class DigitalSignature:
     def sign(self, message: bytes) -> Optional[bytes]:
         """
         Creates digital signature of a message
-
+        
         :param message: Text of message to encrypt
         :type message: bytes
         :return: signature
