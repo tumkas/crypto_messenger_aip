@@ -91,9 +91,12 @@ class SymmetricEncryption:
 
             try:
                 padded_data = decryptor.update(actual_ciphertext) + decryptor.finalize()
+                print(padded_data)
 
                 unpadder = padding.PKCS7(algorithms.AES.block_size).unpadder()
+                print(unpadder)
                 plaintext = unpadder.update(padded_data) + unpadder.finalize()
+                print(plaintext)
                 return plaintext.decode()
             except Exception as e:
                 print(f"Error during decryption in CBC mode: {e}")

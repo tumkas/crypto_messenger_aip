@@ -13,6 +13,7 @@ from cryptography.hazmat.primitives.serialization import (
     Encoding,
     PublicFormat,
 )
+import time
 
 log = Logger("transaction")
 
@@ -37,6 +38,7 @@ class Transaction:
         content: Any = "",
         sign_public_key: bytes = None,
         signature: bytes = None,
+        timestamp: float = time.time()
     ):
         """
         Initializes a new Transaction instance.
@@ -54,6 +56,7 @@ class Transaction:
         self.content = content
         self.sign_public_key = sign_public_key
         self.signature = signature
+        self.timestamp = timestamp
 
     def to_dict(self):
         """
@@ -71,6 +74,7 @@ class Transaction:
             "sign_public_key": (
                 self.sign_public_key.hex() if self.sign_public_key else None
             ),
+            "timestamp": str(self.timestamp)
         }
 
     def calculate_hash(self) -> str:

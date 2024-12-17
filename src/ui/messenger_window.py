@@ -174,17 +174,17 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
 
     def handle_messages(self, my_key, messages, encryptor):
         for message in messages:
-            time_mes = datetime.fromtimestamp(message.timestamp).strftime("%H:%M")
+            time_mes = datetime.fromtimestamp(float(message.timestamp)).strftime("%H:%M")
             if my_key == message.sender:
                 bubble = self.templates["Sender Bubble"].format(
                     time=time_mes, username=self.username,
-                    text=encryptor.decrypt(message.content.encode())
+                    text=encryptor.decrypt(bytes.fromhex(message.content))
                 )
             else:
                 reciever = [peer for peer in self.peers if peer[3] == message.sender]
                 bubble = self.templates["Receiver Bubble"].format(
                     time=time_mes, username=reciever[0][2],
-                    text=encryptor.decrypt(message.content.encode())
+                    text=encryptor.decrypt(bytes.fromhex(message.content))
                 )
 
             current_html = self.message_area.toHtml()

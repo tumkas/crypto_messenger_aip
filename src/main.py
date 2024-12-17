@@ -151,7 +151,8 @@ def main():
                 blockchain.add_transaction(transaction)
                 p2p_network.broadcast_transaction(transaction, None)
                 app.handle_messages(dh_public_key,
-                    get_messages((host, port, username, dh_public_key), recipient))
+                    get_messages((host, port, username, dh_public_key), recipient),
+                encryptor)
             else:
                 log.error("Message was not encrypted")
         else:
