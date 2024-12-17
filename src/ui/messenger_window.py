@@ -14,7 +14,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
 
     #work_exemp = None
 
-    def __init__(self, username: str, cbu, smsg, rmvcn, peers, connections):
+    def __init__(self, username: str, peers):
         """
         Initializes the messenger application, sets up the UI, loads chat names,
         styles, and message templates, and connects signals to their respective slots
@@ -33,10 +33,10 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         self.resize_direction = None
 
         self.peers = peers
-        self.cbu = cbu
-        self.smsg = smsg
-        self.rmvcn = rmvcn
-        self.connections = connections
+        # self.cbu = cbu
+        # self.smsg = smsg
+        # self.rmvcn = rmvcn
+        # self.connections = connections
         self.chat_names = [peer[2] for peer in self.peers]
         self.load_chats()
 
@@ -370,7 +370,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         self.chatList.clear()
         filtered_chats = [chat for chat in self.chat_names if text.lower() in chat.lower()]
         self.chatList.addItems(filtered_chats)
-    
+
     def show_peers_dialog(self):
         """
 
@@ -391,7 +391,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
             item = QtWidgets.QListWidgetItem(peer)
             peer_list_widget.addItem(item)
 
-  
+
         def on_peer_clicked(item):
             peer_name = item.text()
             QtWidgets.QMessageBox.information(self, "Peer Selected", f"You selected: {peer_name}")
