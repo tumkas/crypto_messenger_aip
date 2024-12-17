@@ -47,6 +47,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         self.deleteChatAction.triggered.connect(self.delete_chat)
         self.changeNicknameAction.triggered.connect(self.change_nickname)
         self.chat_Search.textChanged.connect(self.search_chats)
+        self.showPeersAction.triggered.connect(self.show_peers_dialog)
 
         #self.work_exemp = work_exemp
 
@@ -360,6 +361,36 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         self.chatList.clear()
         filtered_chats = [chat for chat in self.chat_names if text.lower() in chat.lower()]
         self.chatList.addItems(filtered_chats)
+    
+    def show_peers_dialog(self):
+        """
+
+        Shows avaliable peers
+        """
+
+        dialog = QtWidgets.QDialog(self)
+        dialog.setWindowTitle("Available Peers")
+        dialog.resize(300, 200)
+
+        peer_list_widget = QtWidgets.QListWidget(dialog)
+        peer_list_widget.setGeometry(10, 10, 280, 180)
+
+
+        peers = ["Peer 1", "Peer 2", "Peer 3", "Peer 4"]
+
+        for peer in peers:
+            item = QtWidgets.QListWidgetItem(peer)
+            peer_list_widget.addItem(item)
+
+  
+        def on_peer_clicked(item):
+            peer_name = item.text()
+            QtWidgets.QMessageBox.information(self, "Peer Selected", f"You selected: {peer_name}")
+
+        peer_list_widget.itemClicked.connect(on_peer_clicked)
+
+        dialog.exec_()
+
 
 
 if __name__ == "__main__":
