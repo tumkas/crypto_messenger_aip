@@ -65,7 +65,7 @@ class SymmetricEncryption:
             print("Unsupported algorithm or mode")
             return None
 
-     def decrypt(self, ciphertext: bytes) -> Optional[str]:
+    def decrypt(self, ciphertext: bytes) -> Optional[str]:
         """
         Decrypts the message
 
@@ -107,7 +107,7 @@ if __name__ == "__main__":
 
     key = os.urandom(32)
 
-    encryptor = SymmetricEncryption(key, algorithm="AES", mode="GCM")
+    encryptor = SymmetricEncryption(key, algorithm="AES", mode="CBC")
     plaintext = "This is a secret message."
 
     encrypted = encryptor.encrypt(plaintext)

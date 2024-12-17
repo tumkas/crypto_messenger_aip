@@ -70,7 +70,7 @@ class DigitalSignature:
     def sign(self, message: bytes) -> Optional[bytes]:
         """
         Creates digital signature of a message
-        
+
         :param message: Text of message to encrypt
         :type message: bytes
         :return: signature
