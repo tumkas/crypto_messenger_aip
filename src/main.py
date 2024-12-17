@@ -156,7 +156,7 @@ def main():
         style_sheet = file.read()
         app.setStyleSheet(style_sheet)
 
-    window = MessengerApp(username, peers=p2p_network.peers)
+    window = MessengerApp(username, connect_by_username, send_message, peers=p2p_network.peers)
     window.show()
     sys.exit(app.exec_())
 

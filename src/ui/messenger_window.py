@@ -14,7 +14,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
 
     #work_exemp = None
 
-    def __init__(self, username: str, peers):
+    def __init__(self, username: str, cbu, smsg, peers):
         """
         Initializes the messenger application, sets up the UI, loads chat names,
         styles, and message templates, and connects signals to their respective slots
@@ -33,8 +33,8 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         self.resize_direction = None
 
         self.peers = peers
-        # self.cbu = cbu
-        # self.smsg = smsg
+        self.cbu = cbu
+        self.smsg = smsg
         # self.rmvcn = rmvcn
         # self.connections = connections
         self.chat_names = [peer[2] for peer in self.peers]
@@ -385,10 +385,8 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         peer_list_widget.setGeometry(10, 10, 280, 180)
 
 
-        peers = ["Peer 1", "Peer 2", "Peer 3", "Peer 4"]
-
-        for peer in peers:
-            item = QtWidgets.QListWidgetItem(peer)
+        for peer in self.peers:
+            item = QtWidgets.QListWidgetItem(peer[2])
             peer_list_widget.addItem(item)
 
 
