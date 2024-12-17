@@ -1,5 +1,4 @@
 import unittest
-from transaction import Transaction
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.serialization import (
@@ -7,6 +6,11 @@ from cryptography.hazmat.primitives.serialization import (
     Encoding,
     PublicFormat,
 )
+import os
+import sys
+parent_dir = os.path.dirname(os.path.realpath(__file__)) + "/.."
+sys.path.append(parent_dir)
+from src.blockchain.transaction import Transaction
 
 
 class TestTransaction(unittest.TestCase):
@@ -44,7 +48,7 @@ class TestTransaction(unittest.TestCase):
         """ Test transaction can be correctly signed."""
         self.transaction.sign_transaction(self.private_key)
         self.assertIsNotNone(self.transaction.signature)
-    
+
     def test_sign_transaction_invalid(self):
         """ Test if sign transaction raises correct value error."""
         invalid_transaction = Transaction()
@@ -69,7 +73,7 @@ class TestTransaction(unittest.TestCase):
         self.transaction.sign_transaction(self.private_key)
         is_valid = self.transaction.is_valid(invalid_public_key)
         self.assertFalse(is_valid)
-        
+
         invalid_transaction = Transaction(
             sender=b"Alice",
             recipient=b"Bob",
