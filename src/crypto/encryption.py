@@ -65,6 +65,43 @@ class SymmetricEncryption:
             print("Unsupported algorithm or mode")
             return None
 
+     def decrypt(self, ciphertext: bytes) -> Optional[str]:
+        """
+        Decrypts the message
+
+        :param ciphertext: the message to be decrypted
+        :type ciphertext: bytes
+        :return: the decrypted message
+        :rtype: str
+        """
+        if not ciphertext:
+            return None
+
+        if self.algorithm == "AES" and self.mode == "CBC":
+            if len(ciphertext) < 16:
+                print("Ciphertext too short for CBC mode")
+                return None
+            iv = ciphertext[:16]
+            actual_ciphertext = ciphertext[16:]
+
+            cipher = Cipher(
+                algorithms.AES(self.key), modes.CBC(iv), backend=default_backend()
+            )
+            decryptor = cipher.decryptor()
+
+            try:
+                padded_data = decryptor.update(actual_ciphertext) + decryptor.finalize()
+
+                unpadder = padding.PKCS7(algorithms.AES.block_size).unpadder()
+                plaintext = unpadder.update(padded_data) + unpadder.finalize()
+                return plaintext.decode()
+            except Exception as e:
+                print(f"Error during decryption in CBC mode: {e}")
+                return None
+        else:
+            print("Unsupported algorithm or mode")
+            return None
+
 
 if __name__ == "__main__":
 
@@ -75,3 +112,6 @@ if __name__ == "__main__":
 
     encrypted = encryptor.encrypt(plaintext)
     print("Encrypted:", encrypted.hex() if encrypted else "None")
+
+    decrypted = encryptor.decrypt(encrypted)
+    print("Decrypted:", decrypted if decrypted else "None")
