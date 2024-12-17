@@ -1,9 +1,13 @@
 import unittest
 import time
 from unittest.mock import patch
-from consensus import ProofOfWork, Validator
-from blockchain import Block, Blockchain
-from transaction import Transaction
+import os
+import sys
+parent_dir = os.path.dirname(os.path.realpath(__file__)) + "/.."
+sys.path.append(parent_dir)
+from src.blockchain.consensus import ProofOfWork, Validator
+from src.blockchain.blockchain import Block, Blockchain
+from src.blockchain.transaction import Transaction
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.serialization import (
@@ -44,7 +48,7 @@ class TestProofOfWork(unittest.TestCase):
         )
         is_valid = self.pow.validate(invalid_block)
         self.assertFalse(is_valid)
-    
+
     def test_get_target(self):
          """ Test target string is calculated correctly."""
          target = self.pow.get_target()
@@ -85,7 +89,7 @@ class TestValidator(unittest.TestCase):
 
         is_valid = self.validator.validate_block(invalid_block, previous_block)
         self.assertFalse(is_valid)
-    
+
     def test_validate_block_with_invalid_timestamp(self):
         """ Test if block validation method correctly validate block with invalid timestamp."""
         self.blockchain.add_transaction(self.transaction1)
@@ -95,7 +99,7 @@ class TestValidator(unittest.TestCase):
         mined_block.timestamp = 0
         is_valid = self.validator.validate_block(mined_block, previous_block)
         self.assertFalse(is_valid)
-    
+
 
     def test_validate_blockchain(self):
          """ Test if full chain validation method validates correctly."""
@@ -107,8 +111,8 @@ class TestValidator(unittest.TestCase):
          self.blockchain.chain[1].hash = "invalid hash"
          is_valid = self.validator.validate_blockchain(self.blockchain)
          self.assertFalse(is_valid)
-        
 
-        
+
+
 if __name__ == '__main__':
     unittest.main()

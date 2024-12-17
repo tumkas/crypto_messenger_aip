@@ -1,9 +1,13 @@
 import unittest
 import time
 from unittest.mock import patch
-from blockchain import Blockchain, Block
-from transaction import Transaction
-from consensus import ProofOfWork
+import os
+import sys
+parent_dir = os.path.dirname(os.path.realpath(__file__)) + "/.."
+sys.path.append(parent_dir)
+from src.blockchain.blockchain import Blockchain, Block
+from src.blockchain.transaction import Transaction
+from src.blockchain.consensus import ProofOfWork
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.serialization import (
@@ -72,7 +76,7 @@ class TestBlockchain(unittest.TestCase):
         """ Test returns latest block"""
         latest_block = self.blockchain.get_latest_block()
         self.assertEqual(latest_block.index, 0)
-        
+
 
     def test_mine_pending_transactions(self):
         """ Test if mine transaction method correctly mines new block"""
