@@ -4,7 +4,7 @@ from datetime import datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QListWidgetItem, QInputDialog
 from PyQt5.QtCore import Qt
-from new_design import Ui_BlockChain
+from .new_design import Ui_BlockChain
 
 
 class MessengerApp(QMainWindow, Ui_BlockChain):
@@ -14,25 +14,30 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
 
     #work_exemp = None
 
-    def __init__(self):
+    def __init__(self, username: str, cbu, smsg, rmvcn, peers, connections):
         """
-        Initializes the messenger application, sets up the UI, loads chat names, 
+        Initializes the messenger application, sets up the UI, loads chat names,
         styles, and message templates, and connects signals to their respective slots
         """
         super().__init__()
 
         self.setupUi(self)
         self.setWindowFlags(Qt.FramelessWindowHint)
-        self.username = "Guest"
+        self.username = username
 
-        bubbles_file = "formats.html"
+        bubbles_file = "src/ui/formats.html"
         self.templates = self.load_message_bubbles(bubbles_file)
 
         self.border_width = 5
         self.is_resizing = False
         self.resize_direction = None
 
-        self.chat_names = []
+        self.peers = peers
+        self.cbu = cbu
+        self.smsg = smsg
+        self.rmvcn = rmvcn
+        self.connections = connections
+        self.chat_names = [peer[2] for peer in self.peers]
         self.load_chats()
 
         self.chatList.itemClicked.connect(self.select_chat)
@@ -61,7 +66,8 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
             self.centralwidget, "Add Chat", "Enter chat name:"
         )
         if ok and text.strip():
-            self.chat_names.append(text.strip())
+            if self.cbu(text.strip()):
+                self.chat_names.append(text.strip())
             self.load_chats()
 
     def delete_chat(self):
@@ -80,6 +86,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
 
         for item in selected_items:
             self.chat_names.remove(item.text())
+            self.rmvcn(item.text())
         self.load_chats()
 
     def rename_chat(self):
@@ -142,8 +149,10 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
 
             current_html = self.message_area.toHtml()
             new_html = current_html + bubble
+            username = self.currentChatLabel.text()
             self.message_area.setHtml(new_html)
             self.messagePrint_area.clear()
+            self.smsg(username, text)
 
     def receive_message(self, sender, text):
         """
@@ -165,7 +174,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         """
         Loads message bubble templates from an HTML file
 
-        Parses the file and stores the templates for use in displaying 
+        Parses the file and stores the templates for use in displaying
         sent and received messages
 
         :param file_path: Path to the HTML file containing the message bubble templates
@@ -300,7 +309,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         """
         Resizes the window based on the mouse position
 
-        The window's size is adjusted based on the direction determined by the 
+        The window's size is adjusted based on the direction determined by the
         mouse position during resizing
 
         :param global_pos: The global position of the mouse
