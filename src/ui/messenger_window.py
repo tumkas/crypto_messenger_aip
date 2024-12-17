@@ -187,6 +187,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
                     text=encryptor.decrypt(bytes.fromhex(message.content))
                 )
 
+            self.message_area.clear()
             current_html = self.message_area.toHtml()
             new_html = current_html + bubble
             self.message_area.setHtml(new_html)
