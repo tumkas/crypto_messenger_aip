@@ -4,6 +4,7 @@ import socket
 
 from network.p2p import P2PNetwork
 from blockchain.blockchain import Blockchain
+from blockchain.consensus import ProofOfWork
 from network.sockets import P2PSocket
 from blockchain.transaction import Transaction
 from crypto.diffie_hellman import DiffieHellmanKeyExchange
@@ -100,6 +101,13 @@ def main():
                 blockchain.add_transaction(transaction)
                 p2p_network.broadcast_transaction(transaction, None)
                 app.handle_messages(dh_public_key, recipient[3])
+
+                if len(blockchain.pending_transactions) >= 3:
+                    new_block, reward_transaction = blockchain.mine_pending_transactions(ProofOfWork, dh_public_key)
+                    if new_block is None or reward_transaction is None:
+                        return
+                    p2p_network.sync_manager.broadcast_block(new_block, None)
+                    p2p_network.broadcast_transaction(reward_transaction, None)
             else:
                 log.error("Message was not encrypted")
         else:

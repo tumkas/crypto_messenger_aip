@@ -75,7 +75,6 @@ class Ui_BlockChain(object):
 
         self.sendMessage_button = QtWidgets.QPushButton(self.centralwidget)
         self.sendMessage_button.setObjectName("sendMessage_button")
-        self.sendMessage_button.setIcon(QIcon("./icons/sendMessage_Button.png"))
         self.sendMessage_button.setIconSize(self.sendMessage_button.size())
         self.horizontalLayout.addWidget(self.sendMessage_button)
 

@@ -4,6 +4,7 @@ import json5 as json
 from utils.logger import Logger
 from blockchain.transaction import Transaction
 from blockchain.blockchain import Block
+from blockchain.consensus import ProofOfWork
 import socket
 
 log = Logger("sync")
@@ -47,9 +48,8 @@ class SyncManager:
         """
         try:
             conn = self.p2p_network.node.get_connection(peer_host)
-            print(conn)
             if not conn:
-                conn = None
+                return
             self.p2p_network.broadcast_message(
                 b"REQUEST_CHAIN", conn
             )  # Ensure all data is sent
@@ -212,9 +212,16 @@ class SyncManager:
             log.debug(f"Received transaction {transaction.calculate_hash()}")
             if self.blockchain.is_transaction_valid(transaction):
                 self.blockchain.pending_transactions.append(transaction)
-                if transaction.recipient == bytes.fromhex(self.p2p_network.public_key):
+                dh_public_key = bytes.fromhex(self.p2p_network.public_key)
+                if transaction.recipient == dh_public_key:
                     self.p2p_network.ui_app.handle_messages(self.p2p_network.public_key, transaction.sender)
                 self.p2p_network.broadcast_transaction(transaction, conn)
+                if len(self.blockchain.pending_transactions) >= 3:
+                    new_block, reward_transaction = self.blockchain.mine_pending_transactions(ProofOfWork, dh_public_key)
+                    if new_block is None or reward_transaction is None:
+                        return
+                    self.broadcast_block(new_block, None)
+                    self.p2p_network.broadcast_transaction(reward_transaction, None)
                 log.info(f"Added new transaction from network")
             else:
                 log.warning("Invalid transaction received")

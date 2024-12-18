@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QListWidgetItem, QInputDialog
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QMutex, Qt
 from .new_design import Ui_BlockChain
 from crypto.encryption import SymmetricEncryption
 
@@ -13,7 +13,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
     A messenger application with chat management, message sending, and window resizing capabilities
     """
 
-    #work_exemp = None
+    update_message_area_signal = QtCore.pyqtSignal(str)
 
     def __init__(self, username: str, cbu, smsg, p2p_network, dh_key_manager, blockchain):
         """
@@ -28,6 +28,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
 
         bubbles_file = "src/ui/formats.html"
         self.templates = self.load_message_bubbles(bubbles_file)
+        self.update_message_area_signal.connect(self.update_message_area)
 
         self.border_width = 5
         self.is_resizing = False
@@ -38,8 +39,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         self.smsg = smsg
         self.dh_key_manager = dh_key_manager
         self.blockchain = blockchain
-        # self.rmvcn = rmvcn
-        # self.connections = connections
+        self.message_area_mutex = QMutex()
         self.chat_names = [peer[2] for peer in self.p2p_network.peers]
         self.load_chats()
 
@@ -138,6 +138,15 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         chat_name = item.text()
         self.currentChatLabel.setText(chat_name)
         self.message_area.clear()
+        peer_nickname = chat_name
+        
+        peer_key = None
+        for peer in self.p2p_network.peers:
+            if peer[2] == peer_nickname:
+                peer_key = peer[3]
+                break
+        if peer_key:
+            self.handle_messages(self.dh_key_manager.get_public_key(), peer_key)
 
     def send_message(self):
         """
@@ -153,7 +162,11 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
             )
 
             username = self.currentChatLabel.text()
+            if username in ('', 'Select chat', None):
+                print('No chat selected!')
+                return
             self.messagePrint_area.clear()
+
             self.smsg(username, text, self)
 
     def receive_message(self, sender, text):
@@ -190,6 +203,10 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
 
         return messages
 
+
+    @QtCore.pyqtSlot(str)
+    def update_message_area(self, html):
+        self.message_area.setHtml(html)
     def handle_messages(self, my_key, peer_key):
         sender_nickname = None
         for peer in self.p2p_network.peers:
@@ -199,6 +216,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         if sender_nickname != self.currentChatLabel.text():
             return
         
+        self.message_area.clear()
         current_html = self.message_area.toHtml()
         messages = self.get_messages(my_key, peer_key)
         for message in messages:
@@ -218,11 +236,14 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
                     time=time_mes, username=reciever[0][2],
                     text=encryptor.decrypt(bytes.fromhex(message.content))
                 )
-            print(encryptor.decrypt(bytes.fromhex(message.content)))
             current_html += bubble
 
-        self.message_area.clear()
-        self.message_area.setHtml(current_html)
+        self.message_area_mutex.lock()
+        try:
+            QtCore.QMetaObject.invokeMethod(self, "update_message_area", Qt.QueuedConnection, QtCore.Q_ARG(str, current_html))
+            # self.update_message_area_signal.emit(current_html)
+        finally:
+            self.message_area_mutex.unlock()
 
 
     def load_message_bubbles(self, file_path):

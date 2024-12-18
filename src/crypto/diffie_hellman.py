@@ -75,7 +75,6 @@ class DiffieHellmanKeyExchange:
             print(f"Error during key loading: {e}")
             return None
 
-        print("Received public key:", peer_public_key_bytes.decode())
         try:
             shared_key = self.private_key.exchange(peer_public_key)
 
