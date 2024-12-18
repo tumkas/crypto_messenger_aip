@@ -5,6 +5,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QListWidgetItem, QInputDialog
 from PyQt5.QtCore import Qt
 from .new_design import Ui_BlockChain
+from crypto.encryption import SymmetricEncryption
 
 
 class MessengerApp(QMainWindow, Ui_BlockChain):
@@ -14,7 +15,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
 
     #work_exemp = None
 
-    def __init__(self, username: str, cbu, smsg, peers):
+    def __init__(self, username: str, cbu, smsg, p2p_network, dh_key_manager, blockchain):
         """
         Initializes the messenger application, sets up the UI, loads chat names,
         styles, and message templates, and connects signals to their respective slots
@@ -32,12 +33,14 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         self.is_resizing = False
         self.resize_direction = None
 
-        self.peers = peers
+        self.p2p_network = p2p_network
         self.cbu = cbu
         self.smsg = smsg
+        self.dh_key_manager = dh_key_manager
+        self.blockchain = blockchain
         # self.rmvcn = rmvcn
         # self.connections = connections
-        self.chat_names = [peer[2] for peer in self.peers]
+        self.chat_names = [peer[2] for peer in self.p2p_network.peers]
         self.load_chats()
 
         self.chatList.itemClicked.connect(self.select_chat)
@@ -168,28 +171,58 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
             current_html = self.message_area.toHtml()
             new_html = current_html + bubble
             self.message_area.setHtml(new_html)
+    
+    def get_messages(self, my_key, peer_key):
+        messages = []
+        for block in self.blockchain.chain:
+            for transaction in block.transactions:
+                if (
+                    transaction.sender == my_key and transaction.recipient == peer_key
+                ) or (
+                    transaction.sender == peer_key and transaction.recipient == my_key
+                ):
+                    messages.append(transaction)
+        for transaction in self.blockchain.pending_transactions:
+            if (
+                transaction.sender == my_key and transaction.recipient == peer_key
+            ) or (transaction.sender == peer_key and transaction.recipient == my_key):
+                messages.append(transaction)
 
-    def handle_messages(self, my_key, messages, encryptor):
+        return messages
+
+    def handle_messages(self, my_key, peer_key):
+        sender_nickname = None
+        for peer in self.p2p_network.peers:
+            if peer[3] == peer_key:
+                sender_nickname = peer[2]
+                break
+        if sender_nickname != self.currentChatLabel.text():
+            return
+        
         current_html = self.message_area.toHtml()
+        messages = self.get_messages(my_key, peer_key)
         for message in messages:
             time_mes = datetime.fromtimestamp(float(message.timestamp)).strftime("%H:%M")
             if my_key == message.sender:
+                shared_key = self.dh_key_manager.generate_shared_key(message.recipient)
+                encryptor = SymmetricEncryption(shared_key, algorithm="AES", mode="CBC")
                 bubble = self.templates["Sender Bubble"].format(
                     time=time_mes, username=self.username,
                     text=encryptor.decrypt(bytes.fromhex(message.content))
                 )
             else:
-                reciever = [peer for peer in self.peers if peer[3] == message.sender]
+                shared_key = self.dh_key_manager.generate_shared_key(message.sender)
+                encryptor = SymmetricEncryption(shared_key, algorithm="AES", mode="CBC")
+                reciever = [peer for peer in self.p2p_network.peers if peer[3] == message.sender]
                 bubble = self.templates["Receiver Bubble"].format(
                     time=time_mes, username=reciever[0][2],
                     text=encryptor.decrypt(bytes.fromhex(message.content))
                 )
-
+            print(encryptor.decrypt(bytes.fromhex(message.content)))
             current_html += bubble
 
         self.message_area.clear()
         self.message_area.setHtml(current_html)
-        self.messagePrint_area.clear()
 
 
     def load_message_bubbles(self, file_path):
@@ -406,7 +439,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         peer_list_widget.setGeometry(10, 10, 280, 180)
 
 
-        for peer in self.peers:
+        for peer in self.p2p_network.peers:
             item = QtWidgets.QListWidgetItem(peer[2])
             peer_list_widget.addItem(item)
 

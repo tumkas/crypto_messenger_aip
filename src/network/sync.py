@@ -1,4 +1,5 @@
-'''Module that handles blockchain syncronization'''
+"""Module that handles blockchain syncronization"""
+
 import json5 as json
 from utils.logger import Logger
 from blockchain.transaction import Transaction
@@ -9,7 +10,7 @@ log = Logger("sync")
 
 
 class SyncManager:
-    '''
+    """
     Class that handles syncronization
 
     :ivar p2p_network: Peer's P2P Network
@@ -18,7 +19,8 @@ class SyncManager:
     :type blockchain: Blockchain
     :ivar sync_interval: Syncronization interval
     :type sync_interval: int
-    '''
+    """
+
     def __init__(self, p2p_network, blockchain, sync_interval: int = 5):
         """
         Intialization of syncronization manager
@@ -48,7 +50,9 @@ class SyncManager:
             print(conn)
             if not conn:
                 conn = None
-            self.p2p_network.broadcast_message(b"REQUEST_CHAIN", conn)  # Ensure all data is sent
+            self.p2p_network.broadcast_message(
+                b"REQUEST_CHAIN", conn
+            )  # Ensure all data is sent
             log.info(f"Requesting blockchain from {peer_host}:{peer_port}")
 
         except socket.error as e:
@@ -95,19 +99,20 @@ class SyncManager:
         self.p2p_network.broadcast_message(b"NEW_BLOCK" + block_bytes, conn)
 
     def broadcast_chain(self, conn) -> None:
-        '''
+        """
         Broadcast chain to peer
 
         :param conn: Sender connection
         :type conn: socket.connection
-        '''
+        """
         if not self.blockchain.chain:
             log.debug("Cannot broadcast empty chain")
             return
         log.debug("Broadcasting chain...")
 
-        chain_bytes = json.dumps([block.to_dict() for block in self.blockchain.chain],
-                                 ensure_ascii=False).encode()
+        chain_bytes = json.dumps(
+            [block.to_dict() for block in self.blockchain.chain], ensure_ascii=False
+        ).encode()
         self.p2p_network.broadcast_message(b"BLOCKCHAIN" + chain_bytes, conn)
 
     def start_sync_loop(self) -> None:
@@ -122,7 +127,6 @@ class SyncManager:
                     self.request_chain(peer[0], peer[1])
                 except Exception as e:
                     log.error(f"Error syncing with peer {peer}: {e}")
-
 
     def handle_new_block(self, block_data: bytes, conn) -> None:
         """
@@ -148,9 +152,7 @@ class SyncManager:
                         if transaction["sender"]
                         else None
                     )
-                transaction["recipient"] = bytes.fromhex(
-                    transaction["recipient"]
-                )
+                transaction["recipient"] = bytes.fromhex(transaction["recipient"])
                 if transaction["sign_public_key"]:
                     transaction["sign_public_key"] = bytes.fromhex(
                         transaction["sign_public_key"]
@@ -162,7 +164,9 @@ class SyncManager:
             if self.blockchain.contains_block(block):
                 return
 
-            if self.blockchain.validator.validate_block(block, self.blockchain.get_latest_block()):
+            if self.blockchain.validator.validate_block(
+                block, self.blockchain.get_latest_block()
+            ):
                 self.blockchain.chain.append(block)
                 self.broadcast_block(block, conn)
                 log.info(f"Added new block with index {block.index}")
@@ -190,9 +194,7 @@ class SyncManager:
                     if transaction_dict["sender"]
                     else None
                 )
-            transaction_dict["recipient"] = bytes.fromhex(
-                transaction_dict["recipient"]
-            )
+            transaction_dict["recipient"] = bytes.fromhex(transaction_dict["recipient"])
             if transaction_dict["signature"]:
                 transaction_dict["signature"] = (
                     bytes.fromhex(transaction_dict["signature"])
@@ -210,6 +212,8 @@ class SyncManager:
             log.debug(f"Received transaction {transaction.calculate_hash()}")
             if self.blockchain.is_transaction_valid(transaction):
                 self.blockchain.pending_transactions.append(transaction)
+                if transaction.recipient == bytes.fromhex(self.p2p_network.public_key):
+                    self.p2p_network.ui_app.handle_messages(self.p2p_network.public_key, transaction.sender)
                 self.p2p_network.broadcast_transaction(transaction, conn)
                 log.info(f"Added new transaction from network")
             else:
@@ -231,13 +235,21 @@ class SyncManager:
             transactions = []
             for transaction_data in block_data["transactions"]:
                 if transaction_data["signature"]:
-                    transaction_data["signature"] = bytes.fromhex(transaction_data["signature"])
+                    transaction_data["signature"] = bytes.fromhex(
+                        transaction_data["signature"]
+                    )
                 if transaction_data["sender"]:
-                    transaction_data["sender"] = bytes.fromhex(transaction_data["sender"])
+                    transaction_data["sender"] = bytes.fromhex(
+                        transaction_data["sender"]
+                    )
                 if transaction_data["recipient"]:
-                    transaction_data["recipient"] = bytes.fromhex(transaction_data["recipient"])
+                    transaction_data["recipient"] = bytes.fromhex(
+                        transaction_data["recipient"]
+                    )
                 if transaction_data["sign_public_key"]:
-                    transaction_data["sign_public_key"] = bytes.fromhex(transaction_data["sign_public_key"])
+                    transaction_data["sign_public_key"] = bytes.fromhex(
+                        transaction_data["sign_public_key"]
+                    )
                 transactions.append(Transaction(**transaction_data))
             block_data["transacti, connons"] = transactions
             chain.append(Block(**block_data))

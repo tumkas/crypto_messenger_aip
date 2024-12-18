@@ -46,6 +46,79 @@ def get_ip():
 
 
 def main():
+    def get_shared_key(peer_public_key):
+        """Retrieves existing shared key or generates new one."""
+        if peer_public_key in shared_keys:
+            return shared_keys[peer_public_key]
+        else:
+            shared_key = dh_key_manager.generate_shared_key(peer_public_key)
+            if shared_key:
+                shared_keys[peer_public_key] = shared_key
+                return shared_key
+
+    def connect_by_username(username):
+        peer = ()
+        if len(p2p_network.peers):
+            for p in p2p_network.peers:
+                if p[2] == username:
+                    peer = p
+                    break
+                else:
+                    log.info("No such user")
+                    return False
+            if not p2p_network.node.get_connection(peer[0]):
+                p2p_network.connect_to_peer(peer[0], peer[1])
+            return True
+        else:
+            log.error("Couldnt find user")
+            return False
+
+
+    def send_message(username, content, app: QApplication):
+        recipient = None
+        for peer in p2p_network.peers:
+            if peer[2] == username:
+                recipient = peer
+                break
+        if recipient is None:
+            print(f"User {username} not found")
+
+        shared_key = get_shared_key(recipient[3])
+        if shared_key:
+            encryptor = SymmetricEncryption(shared_key, algorithm="AES", mode="CBC")
+            encrypted_content = encryptor.encrypt(content)
+            if encrypted_content:
+                log.debug("Creating signed encrypted transaction")
+                transaction = Transaction(
+                    dh_public_key,
+                    recipient[3],
+                    0,
+                    encrypted_content.hex(),
+                    signature_manager.get_public_key(),
+                )
+                transaction.sign_transaction(signature_manager)
+                blockchain.add_transaction(transaction)
+                p2p_network.broadcast_transaction(transaction, None)
+                app.handle_messages(dh_public_key, recipient[3])
+            else:
+                log.error("Message was not encrypted")
+        else:
+            log.warning("No shared key")
+
+    def remove_connection(username):
+        peer = None
+        for p in p2p_network.peers:
+            if p[2] == username:
+                peer = p
+                break
+        if peer is None:
+            print(f"User {username} not found")
+
+        conn = p2p_network.node.get_connection(peer[0])
+        p2p_network.node.connections.remove(conn, (peer[0], peer[1]))
+        conn.close()
+
+
     username = input("Enter your username (default=guest): ") or "guest"
     host = input(f"Enter your host (default={get_ip()}): ") or get_ip()
     try:
@@ -76,101 +149,14 @@ def main():
         signature_manager,
         sync_interval,
         broadcast_interval,
-        max_connections
+        max_connections,
     )
     p2p_network.start()
     # p2p_network.sync_with_peers()
-    p2p_network.discover_peers() # <--- кривовато работает
+    p2p_network.discover_peers()
 
     log.info(f"Your public key: {dh_public_key}")
     shared_keys = {}
-
-    def get_shared_key(peer_public_key):
-        """Retrieves existing shared key or generates new one."""
-        if peer_public_key in shared_keys:
-            return shared_keys[peer_public_key]
-        else:
-            shared_key = dh_key_manager.generate_shared_key(peer_public_key)
-            if shared_key:
-                shared_keys[peer_public_key] = shared_key
-                return shared_key
-
-    def connect_by_username(username):
-        peer = ()
-        if len(p2p_network.peers):
-            for p in p2p_network.peers:
-                if p[2] == username:
-                    peer = p
-                    break
-                else:
-                    log.info("No such user")
-                    return False
-
-            p2p_network.connect_to_peer(peer[0], peer[1])
-            return True
-        else:
-            log.error("Couldnt find user")
-            return False
-
-
-    def get_messages(peer1, peer2):
-        messages = []
-        for block in blockchain.chain:
-            for transaction in block.transactions:
-                if (transaction.sender == peer1[3] and \
-                    transaction.recipient == peer2[3]) or \
-                    (transaction.sender == peer2[3] and \
-                    transaction.recipient == peer1[3]):
-                    messages.append(transaction)
-        for transaction in blockchain.pending_transactions:
-            if (transaction.sender == peer1[3] and \
-                transaction.recipient == peer2[3]) or \
-                (transaction.sender == peer2[3] and \
-                transaction.recipient == peer1[3]):
-                messages.append(transaction)
-
-        return messages
-
-    def send_message(username, content, app):
-        recipient = None
-        for peer in p2p_network.peers:
-            if peer[2] == username:
-                recipient = peer
-                break
-        if recipient is None:
-            print(f"User {username} not found")
-
-        shared_key = get_shared_key(recipient[3])
-        if shared_key:
-            encryptor = SymmetricEncryption(shared_key, algorithm="AES", mode="CBC")
-            encrypted_content = encryptor.encrypt(content)
-            if encrypted_content:
-                log.debug("Creating signed encrypted transaction")
-                transaction = Transaction(dh_public_key, recipient[3], 0, encrypted_content.hex(), signature_manager.get_public_key())
-                transaction.sign_transaction(signature_manager)
-                blockchain.add_transaction(transaction)
-                p2p_network.broadcast_transaction(transaction, None)
-                app.handle_messages(dh_public_key,
-                    get_messages((host, port, username, dh_public_key), recipient),
-                encryptor)
-            else:
-                log.error("Message was not encrypted")
-        else:
-               log.warning("No shared key")
-
-    def remove_connection(username):
-        peer = None
-        for p in p2p_network.peers:
-            if p[2] == username:
-                peer = p
-                break
-        if peer is None:
-            print(f"User {username} not found")
-
-        conn = p2p_network.node.get_connection(peer[0])
-        p2p_network.node.connections.remove(conn, (peer[0], peer[1]))
-        conn.close()
-
 
     app = QApplication(sys.argv)
 
@@ -178,9 +164,18 @@ def main():
         style_sheet = file.read()
         app.setStyleSheet(style_sheet)
 
-    window = MessengerApp(username, connect_by_username, send_message, peers=p2p_network.peers)
+    window = MessengerApp(
+        username,
+        connect_by_username,
+        send_message,
+        p2p_network,
+        dh_key_manager=dh_key_manager,
+        blockchain=blockchain
+    )
+    p2p_network.ui_app = window
     window.show()
     sys.exit(app.exec_())
+
 
 #    while True:
 #        command = input(
@@ -278,4 +273,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

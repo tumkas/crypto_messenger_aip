@@ -97,6 +97,7 @@ class P2PNetwork:
         self.sync_manager = sync_manager(self, self.blockchain, self.sync_interval)
         self.signature_manager = signature_manager
         self.node = node(self.host, self.port, self.blockchain, self.sync_manager, self.signature_manager, max_connections)
+        self.ui_app = None
 
 
     def start(self):
