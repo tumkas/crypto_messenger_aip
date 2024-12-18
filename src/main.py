@@ -15,6 +15,7 @@ from utils.logger import Logger
 from utils.config import DEFAULT_DH_PARAMETERS, DEFAULT_PORT, BROADCAST_PORT
 from network.sync import SyncManager
 from PyQt5.QtWidgets import QApplication
+import threading
 
 
 log = Logger("main")
@@ -74,6 +75,12 @@ def main():
             log.error("Couldnt find user")
             return False
 
+    def mine_new_block():
+        new_block, reward_transaction = blockchain.mine_pending_transactions(ProofOfWork, dh_public_key)
+        if new_block is None or reward_transaction is None:
+            return
+        p2p_network.sync_manager.broadcast_block(new_block, None)
+        p2p_network.broadcast_transaction(reward_transaction, None)
 
     def send_message(username, content, app: QApplication):
         recipient = None
@@ -103,11 +110,7 @@ def main():
                 app.handle_messages(dh_public_key, recipient[3])
 
                 if len(blockchain.pending_transactions) >= 3:
-                    new_block, reward_transaction = blockchain.mine_pending_transactions(ProofOfWork, dh_public_key)
-                    if new_block is None or reward_transaction is None:
-                        return
-                    p2p_network.sync_manager.broadcast_block(new_block, None)
-                    p2p_network.broadcast_transaction(reward_transaction, None)
+                    threading.Thread(target=mine_new_block, daemon=True).start()
             else:
                 log.error("Message was not encrypted")
         else:
@@ -123,7 +126,7 @@ def main():
             print(f"User {username} not found")
 
         conn = p2p_network.node.get_connection(peer[0])
-        p2p_network.node.connections.remove(conn, (peer[0], peer[1]))
+        p2p_network.node.connections.remove((conn, (peer[0], peer[1])))
         conn.close()
 
 
@@ -176,6 +179,7 @@ def main():
         username,
         connect_by_username,
         send_message,
+        remove_connection,
         p2p_network,
         dh_key_manager=dh_key_manager,
         blockchain=blockchain

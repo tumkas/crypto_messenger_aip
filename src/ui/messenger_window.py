@@ -15,7 +15,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
 
     update_message_area_signal = QtCore.pyqtSignal(str)
 
-    def __init__(self, username: str, cbu, smsg, p2p_network, dh_key_manager, blockchain):
+    def __init__(self, username: str, cbu, smsg, rmvcn, p2p_network, dh_key_manager, blockchain):
         """
         Initializes the messenger application, sets up the UI, loads chat names,
         styles, and message templates, and connects signals to their respective slots
@@ -37,6 +37,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         self.p2p_network = p2p_network
         self.cbu = cbu
         self.smsg = smsg
+        self.rmvcn = rmvcn
         self.dh_key_manager = dh_key_manager
         self.blockchain = blockchain
         self.message_area_mutex = QMutex()
@@ -91,7 +92,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
 
         for item in selected_items:
             self.chat_names.remove(item.text())
-            self.rmvcn(item.text())
+            # self.rmvcn(item.text())
         self.load_chats()
 
     def rename_chat(self):
