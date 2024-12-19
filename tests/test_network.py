@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import patch, MagicMock
 import os
 import sys
+
 parent_dir = os.path.dirname(os.path.realpath(__file__)) + "/.."
 sys.path.append(parent_dir)
 
@@ -40,9 +41,9 @@ class TestDiscovery(unittest.TestCase):
         mock_verify_signature.assert_called_once_with("valid_sig", "public_key")
 
 class TestP2P(unittest.TestCase):
-    @patch('src.network.p2p.socket')
-    @patch('src.network.p2p.logger.log_info')
-    @patch('src.crypto.encryption.encrypt_message', return_value="encrypted_message")
+    @patch('src.network.p2p.P2PNetwork')
+    @patch('src.utils.logger.Logger')
+    @patch('src.crypto.encryption.SymmetricEncryption', return_value="encrypted_message")
     def test_p2p_connection(self, mock_encrypt_message, mock_log_info, mock_socket):
         # Setup mock objects
         mock_socket_instance = MagicMock()
