@@ -16,7 +16,11 @@ class TestDiffieHellman(unittest.TestCase):
 
 		self.assertEqual(type(self.dhc.generate_shared_key(test_key)), bytes)
 
-	def test_generate_shared_key_fail(self):
+	def test_generate_shared_key_none(self):
+		with self.assertRaises(AssertionError):
+			self.assertEqual(type(self.dhc.generate_shared_key("")), bytes)
+
+	def test_generate_shared_key_incorrect_key(self):
 		with self.assertRaises(AssertionError):
 			self.assertEqual(type(self.dhc.generate_shared_key("123")), bytes)
 
