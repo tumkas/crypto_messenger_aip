@@ -93,6 +93,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         for item in selected_items:
             self.chat_names.remove(item.text())
             # self.rmvcn(item.text())
+        self.currentChatLabel.setText("Select chat")
         self.load_chats()
 
     def rename_chat(self):
@@ -140,7 +141,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         self.currentChatLabel.setText(chat_name)
         self.message_area.clear()
         peer_nickname = chat_name
-        
+
         peer_key = None
         for peer in self.p2p_network.peers:
             if peer[2] == peer_nickname:
@@ -185,7 +186,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
             current_html = self.message_area.toHtml()
             new_html = current_html + bubble
             self.message_area.setHtml(new_html)
-    
+
     def get_messages(self, my_key, peer_key):
         messages = []
         for block in self.blockchain.chain:
@@ -216,7 +217,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
                 break
         if sender_nickname != self.currentChatLabel.text():
             return
-        
+
         self.message_area.clear()
         current_html = self.message_area.toHtml()
         messages = self.get_messages(my_key, peer_key)
