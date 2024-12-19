@@ -2,8 +2,8 @@ import os
 import sys
 import unittest
 
-# pdir = os.path.dirname(os.path.realpath(__file__)) + "/.."
-# sys.path.append(pdir)
+pdir = os.path.dirname(os.path.realpath(__file__)) + "/.."
+sys.path.append(pdir)
 
 import src.crypto.signatures as sgn
 
