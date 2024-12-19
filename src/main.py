@@ -1,6 +1,7 @@
 # main.py
 import sys
 import socket
+import time
 
 from network.p2p import P2PNetwork
 from blockchain.blockchain import Blockchain
@@ -14,7 +15,7 @@ from ui.messenger_window import MessengerApp
 from utils.logger import Logger
 from utils.config import DEFAULT_DH_PARAMETERS, DEFAULT_PORT, BROADCAST_PORT
 from network.sync import SyncManager
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QListWidgetItem
 import threading
 
 
@@ -186,6 +187,14 @@ def main():
     )
     p2p_network.ui_app = window
     window.show()
+
+    while window.closed != True:
+        window.chatList.clear()
+        for peer in p2p_network.peers:
+            item = QListWidgetItem(peer[2])
+            window.chatList.addItem(item)
+
+        time.sleep(3)
     sys.exit(app.exec_())
 
 

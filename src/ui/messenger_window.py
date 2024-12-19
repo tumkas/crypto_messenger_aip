@@ -33,6 +33,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         self.border_width = 5
         self.is_resizing = False
         self.resize_direction = None
+        self.closed = False
 
         self.p2p_network = p2p_network
         self.cbu = cbu
@@ -140,7 +141,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         self.currentChatLabel.setText(chat_name)
         self.message_area.clear()
         peer_nickname = chat_name
-        
+
         peer_key = None
         for peer in self.p2p_network.peers:
             if peer[2] == peer_nickname:
@@ -185,7 +186,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
             current_html = self.message_area.toHtml()
             new_html = current_html + bubble
             self.message_area.setHtml(new_html)
-    
+
     def get_messages(self, my_key, peer_key):
         messages = []
         for block in self.blockchain.chain:
@@ -216,7 +217,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
                 break
         if sender_nickname != self.currentChatLabel.text():
             return
-        
+
         self.message_area.clear()
         current_html = self.message_area.toHtml()
         messages = self.get_messages(my_key, peer_key)
@@ -284,6 +285,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         """
         Closes the application window
         """
+        self.closed = True
         self.close()
 
     def minimize_window(self):

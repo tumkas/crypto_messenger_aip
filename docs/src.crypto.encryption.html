@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>src.network.sockets</title>
+    <title>src.crypto.encryption</title>
     <meta name="generator" content="pydoctor 24.11.0"> 
         
     </meta>
@@ -110,7 +110,7 @@
 
       <div class="thingTitle">
         <span>Module</span>
-        <code class="thisobject"><a href="src.network.sockets.html" class="internal-link" title="This module">sockets</a></code> 
+        <code class="thisobject"><a href="src.crypto.encryption.html" class="internal-link" title="This module">encryption</a></code> 
       </div>
       
       <div>
@@ -128,7 +128,7 @@
         
 
         
-            <div class="itemName"><code><a href="src.network.sockets.P2PSocket.html" class="internal-link" title="src.network.sockets.P2PSocket"><wbr></wbr>P2<wbr></wbr>PSocket</a></code>
+            <div class="itemName"><code><a href="src.crypto.encryption.SymmetricEncryption.html" class="internal-link" title="src.crypto.encryption.SymmetricEncryption"><wbr></wbr>Symmetric<wbr></wbr>Encryption</a></code>
             </div>
         
 
@@ -141,21 +141,8 @@
         
          
 
-        <div class="childrenKindTitle">Variables</div>
-        <ul>
-    
-    <li class="">
         
-        
-        
-
-        
-            <div class="itemName"><code><a href="#log" class="internal-link" title="src.network.sockets.log">log</a></code>
-            </div>
-        
-
-    </li>
-</ul> 
+         
 
         
          
@@ -165,7 +152,7 @@
 
       <div class="thingTitle">
         <span>Package</span>
-        <code><a href="src.network.html" class="internal-link" title="The parent of this module">network</a></code> 
+        <code><a href="src.crypto.html" class="internal-link" title="The parent of this module">crypto</a></code> 
       </div>
       
       <div>
@@ -180,17 +167,7 @@
         
 
         
-            <div class="itemName"><code><a href="src.network.discovery.html" class="internal-link" title="src.network.discovery">discovery</a></code>
-            </div>
-        
-
-    </li><li class="">
-        
-        
-        
-
-        
-            <div class="itemName"><code><a href="src.network.p2p.html" class="internal-link" title="src.network.p2p">p2p</a></code>
+            <div class="itemName"><code><a href="src.crypto.diffie_hellman.html" class="internal-link" title="src.crypto.diffie_hellman">diffie<wbr></wbr>_hellman</a></code>
             </div>
         
 
@@ -200,7 +177,7 @@
         
 
         
-            <div class="itemName"><code><a href="src.network.sockets.html" class="internal-link" title="src.network.sockets">sockets</a></code>
+            <div class="itemName"><code><a href="src.crypto.encryption.html" class="internal-link" title="src.crypto.encryption">encryption</a></code>
             </div>
         
 
@@ -210,7 +187,7 @@
         
 
         
-            <div class="itemName"><code><a href="src.network.sync.html" class="internal-link" title="src.network.sync">sync</a></code>
+            <div class="itemName"><code><a href="src.crypto.signatures.html" class="internal-link" title="src.crypto.signatures">signatures</a></code>
             </div>
         
 
@@ -251,7 +228,7 @@
         
 
         <div class="page-header">
-          <h1 class="module"><code><code><a href="index.html" class="internal-link">src</a></code><wbr></wbr>.<code><a href="src.network.html" class="internal-link" title="src.network">network</a></code><wbr></wbr>.<code><a href="src.network.sockets.html" class="internal-link" title="src.network.sockets">sockets</a></code></code></h1>
+          <h1 class="module"><code><code><a href="index.html" class="internal-link">src</a></code><wbr></wbr>.<code><a href="src.crypto.html" class="internal-link" title="src.crypto">crypto</a></code><wbr></wbr>.<code><a href="src.crypto.encryption.html" class="internal-link" title="src.crypto.encryption">encryption</a></code></code></h1>
           <div id="showPrivate">
             <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
           </div>
@@ -267,23 +244,18 @@
         </div>
 
         <div class="moduleDocstring">
-          <div><p>This module contains main socket logic and its main handlers</p></div>
+          <div><p>This module represents message encryption / decryption.    In project dh shared key will be used with this module     to encrypt / decrypt messages.</p></div>
         </div>
 
         <div id="splitTables">
-          <table class="children sortable" id="id23">
+          <table class="children sortable" id="id14">
   
   
   <tr class="class">
     
     <td>Class</td>
-    <td><code><a href="src.network.sockets.P2PSocket.html" class="internal-link" title="src.network.sockets.P2PSocket"><wbr></wbr>P2<wbr></wbr>PSocket</a></code></td>
-    <td>The main socket class</td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#log" class="internal-link" title="src.network.sockets.log">log</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><code><a href="src.crypto.encryption.SymmetricEncryption.html" class="internal-link" title="src.crypto.encryption.SymmetricEncryption"><wbr></wbr>Symmetric<wbr></wbr>Encryption</a></code></td>
+    <td>Encryption class</td>
   </tr>
 </table>
           
@@ -292,31 +264,7 @@
         </div>
 
         <div id="childList">
-          <div class="basevariable">
-  
-  
-  <a name="src.network.sockets.log">
-    
-  </a>
-  <a name="log">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">log</span> =
-    
-    <a class="headerLink" href="#log" title="src.network.sockets.log">
-      
-      
-      ¶
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    <div><p class="undocumented">Undocumented</p></div>
-    
-  </div>
-</div>
+          
         </div>
       
       </div>
