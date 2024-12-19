@@ -28,7 +28,7 @@ def discover_peers(
     :param local_port: Local peer port
     :type local_port: int
     :param broadcast_port: Broadcasting port
-    :type broadcasting port: int
+    :type broadcast_port: int
     :param username: Local peer's username
     :type username: str
     :param public_key: Local peer's DH public key

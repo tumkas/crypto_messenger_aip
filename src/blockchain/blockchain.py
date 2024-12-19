@@ -41,13 +41,19 @@ class Block:
         """
         Initializes a new Block instance.
 
-        :param int index: The index (ID) of the block.
-        :param str previous_hash: The hash of the block preceding this one.
-        :param float timestamp: The time when the block was created (mined).
-        :param List[Transaction] transactions: The list of transactions included in the block.
-        :param int nonce: A number used once during the mining process for this block.
+        :param index: The index (ID) of the block.
+        :type index: int
+        :param previous_hash: The hash of the block preceding this one.
+        :type previous_hash: str
+        :param timestamp: The time when the block was created (mined).
+        :type timestamp: float
+        :param transactions: The list of transactions included in the block.
+        :type transactions: List[Transaction]
+        :param nonce: A number used once during the mining process for this block.
                            Defaults to 0.
-        :param str hash: The hash of the block. If provided, the block will not calculate hash, default is None.
+        :type nonce: int
+        :param hash: The hash of the block. If provided, the block will not calculate hash, default is None.
+        :type hash: str
         """
         self.index = index
         self.previous_hash = previous_hash
@@ -103,7 +109,8 @@ class Blockchain:
         """
         Initializes a new Blockchain instance.
 
-        :param int difficulty: The difficulty level for mining new blocks. Defaults to 4.
+        :param difficulty: The difficulty level for mining new blocks. Defaults to 4.
+        :type difficulty: int
         """
         self.chain: List[Block] = [self.create_genesis_block()]
         self.difficulty = difficulty
@@ -140,7 +147,8 @@ class Blockchain:
         """
         Adds a transaction to the list of pending transactions, after validating it.
 
-        :param Transaction transaction: The transaction to be added.
+        :param transaction: The transaction to be added.
+        :type transaction: Transaction
         """
         if self.is_transaction_valid(transaction):
             self.pending_transactions.append(transaction)
@@ -152,7 +160,8 @@ class Blockchain:
         Validates the transaction.
         Checks if sender has sufficient balance and if transaction has been correctly signed.
 
-        :param Transaction transaction: Transaction to validate
+        :param transaction: Transaction to validate
+        :type transaction: Transaction
         :return: True if transaction is valid, False otherwise
         :rtype: bool
         """
@@ -170,7 +179,8 @@ class Blockchain:
         """
         Calculates the balance of a specific address.
 
-        :param bytes address: The address to check the balance of.
+        :param address: The address to check the balance of.
+        :type address: bytes
         :return: The balance of the address.
         :rtype: float
         """
@@ -189,9 +199,11 @@ class Blockchain:
         """
         Mines a new block using pending transactions and adds it to the chain.
 
-        :param ProofOfWork miner: The mining algorithm to be used.
-        :param str miner_address: The address of the miner receiving rewards.
-        :return:  A tuple containing the mined Block and the reward transaction or tuple of None objects
+        :param miner: The mining algorithm to be used.
+        :type miner: ProofOfWork
+        :param miner_address: The address of the miner receiving rewards.
+        :type miner_address: str
+        :return: A tuple containing the mined Block and the reward transaction or tuple of None objects
         :rtype: tuple[Block, Transaction] | tuple[None, None]
         """
         if not self.pending_transactions:
@@ -231,7 +243,8 @@ class Blockchain:
         """
         Checks if the blockchain already contains the given block.
 
-        :param Block target_block: The block to search for.
+        :param target_block: The block to search for.
+        :type target_block: Block
         :return: True if the block is found, False otherwise.
         :rtype: bool
         """

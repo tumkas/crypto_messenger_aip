@@ -72,8 +72,6 @@ class P2PNetwork:
         :type public_key: str
         :param broadcast_port: Local peer's broadcast port
         :type broadcast_port: int
-        :param peers: Set of knows peers
-        :type peers: set
         :param sync_interval: Blockchain syncronization interval
         :type sync_interval: int
         :param broadcast_interval: Broadcast interval
@@ -81,7 +79,7 @@ class P2PNetwork:
         :param sync_manager: Syncronization manager that handles blockchain operations
         :type sync_manager: SyncManager
         :param signature_manager: Sugnature manager that handles operations with signatures
-        :type DigitalSignature:
+        :type signature_manager: DigitalSignature
         :param node: Node server of peer
         :type node: P2PSocket
         '''
