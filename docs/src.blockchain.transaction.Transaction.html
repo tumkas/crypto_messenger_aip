@@ -270,6 +270,16 @@
         
 
         
+            <div class="itemName"><code><a href="#float%20timestamp" class="internal-link" title="src.blockchain.transaction.Transaction.float timestamp">float timestamp</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
             <div class="itemName"><code><a href="#recipient" class="internal-link" title="src.blockchain.transaction.Transaction.recipient">recipient</a></code>
             </div>
         
@@ -301,6 +311,16 @@
 
         
             <div class="itemName"><code><a href="#signature" class="internal-link" title="src.blockchain.transaction.Transaction.signature">signature</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#timestamp" class="internal-link" title="src.blockchain.transaction.Transaction.timestamp">timestamp</a></code>
             </div>
         
 
@@ -475,6 +495,11 @@
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
+    <td><code><a href="#float%20timestamp" class="internal-link" title="src.blockchain.transaction.Transaction.float timestamp">float timestamp</a></code></td>
+    <td>The timestamp of the transaction.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
     <td><code><a href="#recipient" class="internal-link" title="src.blockchain.transaction.Transaction.recipient">recipient</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="instancevariable">
@@ -491,6 +516,11 @@
     
     <td>Instance Variable</td>
     <td><code><a href="#signature" class="internal-link" title="src.blockchain.transaction.Transaction.signature">signature</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
+    <td><code><a href="#timestamp" class="internal-link" title="src.blockchain.transaction.Transaction.timestamp">timestamp</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -512,7 +542,7 @@
   <div class="functionHeader">
     
     
-    <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, sender: <code>bytes</code> = None, recipient: <code>bytes</code> = None, amount: <code>float</code> = 0, content: <code>Any</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string"></span><span class="rst-variable-quote">'</span>, sign_public_key: <code>bytes</code> = None, signature: <code>bytes</code> = None)</span>:
+    <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, sender: <code>bytes</code> = None, recipient: <code>bytes</code> = None, amount: <code>float</code> = 0, content: <code>Any</code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string"></span><span class="rst-variable-quote">'</span>, sign_public_key: <code>bytes</code> = None, signature: <code>bytes</code> = None, timestamp: <code>float</code> = time.time())</span>:
     
     <a class="headerLink" href="#__init__" title="src.blockchain.transaction.Transaction.__init__">
       
@@ -522,7 +552,7 @@
   </div>
   <div class="docstring functionBody">
     
-    <div><p>Initializes a new Transaction instance.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sender:</span><code>bytes</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">recipient:</span><code>bytes</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">amount:</span><code>float</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">content:</span><code>Any</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sign<wbr></wbr>_public<wbr></wbr>_key:</span><code>bytes</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">signature:</span><code>bytes</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">bytes sender</span></td><td class="fieldArgDesc">The initiator of the transaction.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">bytes recipient</span></td><td class="fieldArgDesc">The recipient of the transaction.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">float amount</span></td><td class="fieldArgDesc">The amount of coins to be transferred.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg"><wbr></wbr>Any content</span></td><td class="fieldArgDesc">Additional content or comment associated with the transaction.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">bytes sign<wbr></wbr>_public<wbr></wbr>_key</span></td><td class="fieldArgDesc">The public key of the sender for verification.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">bytes signature</span></td><td class="fieldArgDesc">The encrypted signature to secure the transaction.</td></tr></table></div>
+    <div><p>Initializes a new Transaction instance.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sender:</span>bytes</td><td class="fieldArgDesc">The initiator of the transaction.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">recipient:</span>bytes</td><td class="fieldArgDesc">The recipient of the transaction.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">amount:</span>float</td><td class="fieldArgDesc">The amount of coins to be transferred.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">content:</span>Any</td><td class="fieldArgDesc">Additional content or comment associated with the transaction.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sign<wbr></wbr>_public<wbr></wbr>_key:</span>bytes</td><td class="fieldArgDesc">The public key of the sender for verification.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">signature:</span>bytes</td><td class="fieldArgDesc">The encrypted signature to secure the transaction.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">timestamp:</span>float</td><td class="fieldArgDesc">The timestamp of the transaction.</td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -572,7 +602,7 @@
   </div>
   <div class="docstring functionBody">
     
-    <div><p>Checks if the transaction's signature is valid using the sender's public key.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">public<wbr></wbr>_key:</span><code>bytes</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">bytes public<wbr></wbr>_key</span></td><td class="fieldArgDesc">The public key to verify the signature.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer">bool</td><td class="fieldArgDesc">True if the signature is valid, False otherwise.</td></tr></table></div>
+    <div><p>Checks if the transaction's signature is valid using the sender's public key.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">public<wbr></wbr>_key:</span>bytes</td><td class="fieldArgDesc">The public key to verify the signature.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer">bool</td><td class="fieldArgDesc">True if the signature is valid, False otherwise.</td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -596,7 +626,7 @@
   </div>
   <div class="docstring functionBody">
     
-    <div><p>Signs the transaction using the sender's private key.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">signer:</span><code>rsa.RSAPrivateKey</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">rsa<wbr></wbr>.<wbr></wbr>RSAPrivate<wbr></wbr>Key signer</span></td><td class="fieldArgDesc">The private key used to sign the transaction.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Raises</td></tr><tr><td class="fieldArgContainer"><code>ValueError</code></td><td>If the transaction does not have a sender or recipient.</td></tr></table></div>
+    <div><p>Signs the transaction using the sender's private key.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">signer:</span>rsa.RSAPrivateKey</td><td class="fieldArgDesc">The private key used to sign the transaction.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Raises</td></tr><tr><td class="fieldArgContainer"><code>ValueError</code></td><td>If the transaction does not have a sender or recipient.</td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -817,6 +847,30 @@
 </div><div class="baseinstancevariable">
   
   
+  <a name="src.blockchain.transaction.Transaction.float timestamp">
+    
+  </a>
+  <a name="float timestamp">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">float timestamp</span> =
+    
+    <a class="headerLink" href="#float timestamp" title="src.blockchain.transaction.Transaction.float timestamp">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>The timestamp of the transaction.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
   <a name="src.blockchain.transaction.Transaction.recipient">
     
   </a>
@@ -910,6 +964,30 @@
     <div><p class="undocumented">Undocumented</p></div>
     
   </div>
+</div><div class="baseinstancevariable">
+  
+  
+  <a name="src.blockchain.transaction.Transaction.timestamp">
+    
+  </a>
+  <a name="timestamp">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">timestamp</span> =
+    
+    <a class="headerLink" href="#timestamp" title="src.blockchain.transaction.Transaction.timestamp">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
 </div>
         </div>
       
@@ -922,7 +1000,7 @@
   <div class="container-fluid">
     <a href="index.html">API Documentation</a> for src,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    24.11.0 at 2024-12-17 11:07:16.
+    24.11.0 at 2024-12-19 13:51:06.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 

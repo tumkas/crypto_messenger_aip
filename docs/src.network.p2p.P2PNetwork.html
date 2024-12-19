@@ -320,6 +320,16 @@
         
 
         
+            <div class="itemName"><code><a href="#ui_app" class="internal-link" title="src.network.p2p.P2PNetwork.ui_app">ui<wbr></wbr>_app</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
             <div class="itemName"><code><a href="#username" class="internal-link" title="src.network.p2p.P2PNetwork.username">username</a></code>
             </div>
         
@@ -424,7 +434,7 @@
         </div>
 
         <div id="splitTables">
-          <table class="children sortable" id="id14">
+          <table class="children sortable" id="id24">
   
   
   <tr class="method">
@@ -520,6 +530,11 @@
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
+    <td><code><a href="#ui_app" class="internal-link" title="src.network.p2p.P2PNetwork.ui_app">ui<wbr></wbr>_app</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
     <td><code><a href="#username" class="internal-link" title="src.network.p2p.P2PNetwork.username">username</a></code></td>
     <td>Local peer's username</td>
   </tr>
@@ -552,7 +567,7 @@
   </div>
   <div class="docstring functionBody">
     
-    <div><p>P2P Network initialization</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">host:</span>str</td><td class="fieldArgDesc">Local peer's host</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">port:</span>int</td><td class="fieldArgDesc">Local peer's port</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span>P2PSocket</td><td class="fieldArgDesc">Node server of peer</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sync<wbr></wbr>_manager:</span>SyncManager</td><td class="fieldArgDesc">Syncronization manager that handles blockchain operations</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">blockchain:</span>Blockchain</td><td class="fieldArgDesc">Peer's local blockchain</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">broadcast<wbr></wbr>_port:</span>int</td><td class="fieldArgDesc">Local peer's broadcast port</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">username:</span>str</td><td class="fieldArgDesc">Local peer's username</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">public<wbr></wbr>_key:</span>str</td><td class="fieldArgDesc">Local peer's DH public key</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">signature<wbr></wbr>_manager</span></td><td class="fieldArgDesc">Sugnature manager that handles operations with signatures</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sync<wbr></wbr>_interval:</span>int</td><td class="fieldArgDesc">Blockchain syncronization interval</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">broadcast<wbr></wbr>_interval:</span>int</td><td class="fieldArgDesc">Broadcast interval</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">max<wbr></wbr>_connections:</span><code>int</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">peers:</span>set</td><td class="fieldArgDesc">Set of knows peers</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg"><wbr></wbr>Digital<wbr></wbr>Signature:</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+    <div><p>P2P Network initialization</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">host:</span>str</td><td class="fieldArgDesc">Local peer's host</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">port:</span>int</td><td class="fieldArgDesc">Local peer's port</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">node:</span>P2PSocket</td><td class="fieldArgDesc">Node server of peer</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sync<wbr></wbr>_manager:</span>SyncManager</td><td class="fieldArgDesc">Syncronization manager that handles blockchain operations</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">blockchain:</span>Blockchain</td><td class="fieldArgDesc">Peer's local blockchain</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">broadcast<wbr></wbr>_port:</span>int</td><td class="fieldArgDesc">Local peer's broadcast port</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">username:</span>str</td><td class="fieldArgDesc">Local peer's username</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">public<wbr></wbr>_key:</span>str</td><td class="fieldArgDesc">Local peer's DH public key</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">signature<wbr></wbr>_manager:</span>DigitalSignature</td><td class="fieldArgDesc">Sugnature manager that handles operations with signatures</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">sync<wbr></wbr>_interval:</span>int</td><td class="fieldArgDesc">Blockchain syncronization interval</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">broadcast<wbr></wbr>_interval:</span>int</td><td class="fieldArgDesc">Broadcast interval</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">max<wbr></wbr>_connections:</span><code>int</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -965,6 +980,30 @@
 </div><div class="baseinstancevariable">
   
   
+  <a name="src.network.p2p.P2PNetwork.ui_app">
+    
+  </a>
+  <a name="ui_app">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">ui_app</span> =
+    
+    <a class="headerLink" href="#ui_app" title="src.network.p2p.P2PNetwork.ui_app">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
   <a name="src.network.p2p.P2PNetwork.username">
     
   </a>
@@ -998,7 +1037,7 @@
   <div class="container-fluid">
     <a href="index.html">API Documentation</a> for src,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    24.11.0 at 2024-12-17 11:07:16.
+    24.11.0 at 2024-12-19 13:51:06.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 

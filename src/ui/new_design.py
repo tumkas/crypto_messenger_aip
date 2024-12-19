@@ -13,10 +13,10 @@ class Ui_BlockChain(object):
         """
         Sets up the user interface for the main window.
 
-        :param Blockchain: The main window object where the UI will be loaded.
-        :type Blockchain: QMainWindow
+        :param BlockChain: The main window object where the UI will be loaded.
+        :type BlockChain: QMainWindow
         """
-        
+
         BlockChain.setObjectName("BlockChain")
         BlockChain.setMinimumSize(800, 600)
         BlockChain.resize(800, 600)
@@ -145,8 +145,8 @@ class Ui_BlockChain(object):
         """
         Translates the UI components of MainWindow.
 
-        :param MainWindow: The main window object to apply translations.
-        :type MainWindow: QMainWindow
+        :param BlockChain: The main window object to apply translations.
+        :type BlockChain: QMainWindow
         """
         _translate = QtCore.QCoreApplication.translate
         BlockChain.setWindowTitle(_translate("BlockChain", "Blockchain mess"))

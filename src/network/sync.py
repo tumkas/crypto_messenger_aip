@@ -65,7 +65,7 @@ class SyncManager:
         Updates local blockchain if recieved chain is longer and valid
 
         :param received_chain: Recieved chain
-        :type recieved_chain: List[Block]
+        :type received_chain: List[Block]
         """
         if not received_chain:
             log.info("Received empty chain")

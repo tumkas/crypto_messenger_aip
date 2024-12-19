@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>src.utils</title>
+    <title>src.crypto</title>
     <meta name="generator" content="pydoctor 24.11.0"> 
         
     </meta>
@@ -110,7 +110,7 @@
 
       <div class="thingTitle">
         <span>Package</span>
-        <code class="thisobject"><a href="src.utils.html" class="internal-link" title="This package">utils</a></code> 
+        <code class="thisobject"><a href="src.crypto.html" class="internal-link" title="This package">crypto</a></code> 
       </div>
       
       <div>
@@ -125,7 +125,7 @@
         
 
         
-            <div class="itemName"><code><a href="src.utils.config.html" class="internal-link" title="src.utils.config">config</a></code>
+            <div class="itemName"><code><a href="src.crypto.diffie_hellman.html" class="internal-link" title="src.crypto.diffie_hellman">diffie<wbr></wbr>_hellman</a></code>
             </div>
         
 
@@ -135,7 +135,27 @@
         
 
         
-            <div class="itemName"><code><a href="src.utils.logger.html" class="internal-link" title="src.utils.logger">logger</a></code>
+            <div class="itemName"><code><a href="src.crypto.encryption.html" class="internal-link" title="src.crypto.encryption">encryption</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="src.crypto.signatures.html" class="internal-link" title="src.crypto.signatures">signatures</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="src.crypto.test_logger.html" class="internal-link" title="src.crypto.test_logger">test<wbr></wbr>_logger</a></code>
             </div>
         
 
@@ -181,7 +201,7 @@
             </div>
         
 
-    </li><li class="">
+    </li><li class=" thisobject">
         
         
         
@@ -221,7 +241,7 @@
             </div>
         
 
-    </li><li class=" thisobject">
+    </li><li class="">
         
         
         
@@ -268,7 +288,7 @@
         
 
         <div class="page-header">
-          <h1 class="package"><code><code><a href="index.html" class="internal-link">src</a></code><wbr></wbr>.<code><a href="src.utils.html" class="internal-link" title="src.utils">utils</a></code></code></h1>
+          <h1 class="package"><code><code><a href="index.html" class="internal-link">src</a></code><wbr></wbr>.<code><a href="src.crypto.html" class="internal-link" title="src.crypto">crypto</a></code></code></h1>
           <div id="showPrivate">
             <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
           </div>
@@ -284,23 +304,33 @@
         </div>
 
         <div class="moduleDocstring">
-          <div><p class="undocumented">Undocumented</p></div>
+          <div><p>Package that handles all cryptography operations like signing messages,     creating dh and rsa keys for users and messages, encrypting and decrypting     messages.</p></div>
         </div>
 
         <div id="splitTables">
-          <table class="children sortable" id="id37">
+          <table class="children sortable" id="id11">
   
   
   <tr class="module">
     
     <td>Module</td>
-    <td><code><a href="src.utils.config.html" class="internal-link" title="src.utils.config">config</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><code><a href="src.crypto.diffie_hellman.html" class="internal-link" title="src.crypto.diffie_hellman">diffie<wbr></wbr>_hellman</a></code></td>
+    <td>This module represents basic Diffie Hellman's (DH) algorithm's usage to generate public, pravate and shared keys and to validate them.</td>
   </tr><tr class="module">
     
     <td>Module</td>
-    <td><code><a href="src.utils.logger.html" class="internal-link" title="src.utils.logger">logger</a></code></td>
-    <td><span class="undocumented">No module docstring; 1/1 class documented</span></td>
+    <td><code><a href="src.crypto.encryption.html" class="internal-link" title="src.crypto.encryption">encryption</a></code></td>
+    <td>This module represents message encryption / decryption.    In project dh shared key will be used with this module     to encrypt / decrypt messages.</td>
+  </tr><tr class="module">
+    
+    <td>Module</td>
+    <td><code><a href="src.crypto.signatures.html" class="internal-link" title="src.crypto.signatures">signatures</a></code></td>
+    <td>This module represents digital signatures and handles message signing.</td>
+  </tr><tr class="module">
+    
+    <td>Module</td>
+    <td><code><a href="src.crypto.test_logger.html" class="internal-link" title="src.crypto.test_logger">test<wbr></wbr>_logger</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
           

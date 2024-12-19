@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>src.utils</title>
+    <title>src.main</title>
     <meta name="generator" content="pydoctor 24.11.0"> 
         
     </meta>
@@ -109,14 +109,20 @@
   <div>
 
       <div class="thingTitle">
-        <span>Package</span>
-        <code class="thisobject"><a href="src.utils.html" class="internal-link" title="This package">utils</a></code> 
+        <span>Module</span>
+        <code class="thisobject"><a href="src.main.html" class="internal-link" title="This module">main</a></code> 
       </div>
       
       <div>
         
 
-        <div class="childrenKindTitle">Modules</div>
+        
+         
+
+        
+        
+
+        <div class="childrenKindTitle">Functions</div>
         <ul>
     
     <li class="">
@@ -125,7 +131,7 @@
         
 
         
-            <div class="itemName"><code><a href="src.utils.config.html" class="internal-link" title="src.utils.config">config</a></code>
+            <div class="itemName"><code><a href="#generate_keys" class="internal-link" title="src.main.generate_keys">generate<wbr></wbr>_keys</a></code>
             </div>
         
 
@@ -135,7 +141,17 @@
         
 
         
-            <div class="itemName"><code><a href="src.utils.logger.html" class="internal-link" title="src.utils.logger">logger</a></code>
+            <div class="itemName"><code><a href="#get_ip" class="internal-link" title="src.main.get_ip">get<wbr></wbr>_ip</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#main" class="internal-link" title="src.main.main">main</a></code>
             </div>
         
 
@@ -143,16 +159,23 @@
 </ul> 
 
         
+         
+
+        <div class="childrenKindTitle">Variables</div>
+        <ul>
+    
+    <li class="">
+        
+        
         
 
         
-         
-
+            <div class="itemName"><code><a href="#log" class="internal-link" title="src.main.log">log</a></code>
+            </div>
         
-         
 
-        
-         
+    </li>
+</ul> 
 
         
          
@@ -162,7 +185,7 @@
 
       <div class="thingTitle">
         <span>Package</span>
-        <code><a href="index.html" class="internal-link" title="The parent of this package">src</a></code> 
+        <code><a href="index.html" class="internal-link" title="The parent of this module">src</a></code> 
       </div>
       
       <div>
@@ -191,7 +214,7 @@
             </div>
         
 
-    </li><li class="">
+    </li><li class=" thisobject">
         
         
         
@@ -221,7 +244,7 @@
             </div>
         
 
-    </li><li class=" thisobject">
+    </li><li class="">
         
         
         
@@ -268,14 +291,14 @@
         
 
         <div class="page-header">
-          <h1 class="package"><code><code><a href="index.html" class="internal-link">src</a></code><wbr></wbr>.<code><a href="src.utils.html" class="internal-link" title="src.utils">utils</a></code></code></h1>
+          <h1 class="module"><code><code><a href="index.html" class="internal-link">src</a></code><wbr></wbr>.<code><a href="src.main.html" class="internal-link" title="src.main">main</a></code></code></h1>
           <div id="showPrivate">
             <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
           </div>
         </div>
 
         <div class="categoryHeader">
-          package documentation
+          module documentation
         </div>
 
         <div class="extrasDocstring">
@@ -288,19 +311,29 @@
         </div>
 
         <div id="splitTables">
-          <table class="children sortable" id="id37">
+          <table class="children sortable" id="id20">
   
   
-  <tr class="module">
+  <tr class="function">
     
-    <td>Module</td>
-    <td><code><a href="src.utils.config.html" class="internal-link" title="src.utils.config">config</a></code></td>
+    <td>Function</td>
+    <td><code><a href="#generate_keys" class="internal-link" title="src.main.generate_keys">generate<wbr></wbr>_keys</a></code></td>
+    <td>Generates keys for both DH and signature.</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#get_ip" class="internal-link" title="src.main.get_ip">get<wbr></wbr>_ip</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="module">
+  </tr><tr class="function">
     
-    <td>Module</td>
-    <td><code><a href="src.utils.logger.html" class="internal-link" title="src.utils.logger">logger</a></code></td>
-    <td><span class="undocumented">No module docstring; 1/1 class documented</span></td>
+    <td>Function</td>
+    <td><code><a href="#main" class="internal-link" title="src.main.main">main</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#log" class="internal-link" title="src.main.log">log</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
           
@@ -309,7 +342,103 @@
         </div>
 
         <div id="childList">
-          
+          <div class="basefunction">
+  
+  
+  <a name="src.main.generate_keys">
+    
+  </a>
+  <a name="generate_keys">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">generate_keys</span><span class="function-signature">()</span>:
+    
+    <a class="headerLink" href="#generate_keys" title="src.main.generate_keys">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Generates keys for both DH and signature.</p></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="src.main.get_ip">
+    
+  </a>
+  <a name="get_ip">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">get_ip</span><span class="function-signature">()</span>:
+    
+    <a class="headerLink" href="#get_ip" title="src.main.get_ip">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="src.main.main">
+    
+  </a>
+  <a name="main">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">main</span><span class="function-signature">()</span>:
+    
+    <a class="headerLink" href="#main" title="src.main.main">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="src.main.log">
+    
+  </a>
+  <a name="log">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">log</span> =
+    
+    <a class="headerLink" href="#log" title="src.main.log">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div>
         </div>
       
       </div>

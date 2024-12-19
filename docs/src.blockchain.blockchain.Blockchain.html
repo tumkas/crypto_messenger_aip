@@ -519,7 +519,7 @@
   </div>
   <div class="docstring functionBody">
     
-    <div><p>Initializes a new Blockchain instance.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">difficulty:</span><code>int</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">int difficulty</span></td><td class="fieldArgDesc">The difficulty level for mining new blocks. Defaults to 4.</td></tr></table></div>
+    <div><p>Initializes a new Blockchain instance.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">difficulty:</span>int</td><td class="fieldArgDesc">The difficulty level for mining new blocks. Defaults to 4.</td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -569,7 +569,7 @@
   </div>
   <div class="docstring functionBody">
     
-    <div><p>Adds a transaction to the list of pending transactions, after validating it.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">transaction:</span><code><a href="src.blockchain.transaction.Transaction.html" class="internal-link" title="src.blockchain.transaction.Transaction">Transaction</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg"><wbr></wbr>Transaction transaction</span></td><td class="fieldArgDesc">The transaction to be added.</td></tr></table></div>
+    <div><p>Adds a transaction to the list of pending transactions, after validating it.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">transaction:</span>Transaction</td><td class="fieldArgDesc">The transaction to be added.</td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -593,7 +593,7 @@
   </div>
   <div class="docstring functionBody">
     
-    <div><p>Checks if the blockchain already contains the given block.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">target<wbr></wbr>_block:</span><code><a href="src.blockchain.blockchain.Block.html" class="internal-link" title="src.blockchain.blockchain.Block">Block</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg"><wbr></wbr>Block target_block</span></td><td class="fieldArgDesc">The block to search for.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer">bool</td><td class="fieldArgDesc">True if the block is found, False otherwise.</td></tr></table></div>
+    <div><p>Checks if the blockchain already contains the given block.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">target<wbr></wbr>_block:</span>Block</td><td class="fieldArgDesc">The block to search for.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer">bool</td><td class="fieldArgDesc">True if the block is found, False otherwise.</td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -641,7 +641,7 @@
   </div>
   <div class="docstring functionBody">
     
-    <div><p>Calculates the balance of a specific address.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">address:</span><code>bytes</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">bytes address</span></td><td class="fieldArgDesc">The address to check the balance of.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer">float</td><td class="fieldArgDesc">The balance of the address.</td></tr></table></div>
+    <div><p>Calculates the balance of a specific address.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">address:</span>bytes</td><td class="fieldArgDesc">The address to check the balance of.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer">float</td><td class="fieldArgDesc">The balance of the address.</td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -714,7 +714,7 @@
   <div class="docstring functionBody">
     
     <div><p>Validates the transaction.
-Checks if sender has sufficient balance and if transaction has been correctly signed.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">transaction:</span><code><a href="src.blockchain.transaction.Transaction.html" class="internal-link" title="src.blockchain.transaction.Transaction">Transaction</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg"><wbr></wbr>Transaction transaction</span></td><td class="fieldArgDesc">Transaction to validate</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer">bool</td><td class="fieldArgDesc">True if transaction is valid, False otherwise</td></tr></table></div>
+Checks if sender has sufficient balance and if transaction has been correctly signed.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">transaction:</span>Transaction</td><td class="fieldArgDesc">Transaction to validate</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer">bool</td><td class="fieldArgDesc">True if transaction is valid, False otherwise</td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -738,7 +738,7 @@ Checks if sender has sufficient balance and if transaction has been correctly si
   </div>
   <div class="docstring functionBody">
     
-    <div><p>Mines a new block using pending transactions and adds it to the chain.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">miner</span></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">miner<wbr></wbr>_address:</span><code>str</code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr><td class="fieldArgContainer"><span class="fieldArg"><wbr></wbr>Proof<wbr></wbr>Of<wbr></wbr>Work miner</span></td><td class="fieldArgDesc">The mining algorithm to be used.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">str miner<wbr></wbr>_address</span></td><td class="fieldArgDesc">The address of the miner receiving rewards.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer">tuple[Block, Transaction] | tuple[None, None]</td><td class="fieldArgDesc">A tuple containing the mined Block and the reward transaction or tuple of None objects</td></tr></table></div>
+    <div><p>Mines a new block using pending transactions and adds it to the chain.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">miner:</span>ProofOfWork</td><td class="fieldArgDesc">The mining algorithm to be used.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">miner<wbr></wbr>_address:</span>str</td><td class="fieldArgDesc">The address of the miner receiving rewards.</td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer">tuple[Block, Transaction] | tuple[None, None]</td><td class="fieldArgDesc">A tuple containing the mined Block and the reward transaction or tuple of None objects</td></tr></table></div>
   </div>
 </div><div class="baseinstancevariable">
   
@@ -920,7 +920,7 @@ Checks if sender has sufficient balance and if transaction has been correctly si
   <div class="container-fluid">
     <a href="index.html">API Documentation</a> for src,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    24.11.0 at 2024-12-17 11:07:16.
+    24.11.0 at 2024-12-19 13:51:06.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 

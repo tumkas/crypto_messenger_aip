@@ -123,7 +123,7 @@ class MessengerApp(QMainWindow, Ui_BlockChain):
         """
         Loads and displays the list of chats in the chatList widget
 
-        Each chat name from `self.chat_names` is added as an item in the list
+        Each chat name from self.chat_names is added as an item in the list
         """
         self.chatList.clear()
         for chat_name in self.chat_names:
