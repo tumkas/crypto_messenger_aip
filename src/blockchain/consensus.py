@@ -23,7 +23,8 @@ class ProofOfWork:
         """
         Initializes the ProofOfWork class.
 
-        :param int difficulty: The mining difficulty level.
+        :param difficulty: The mining difficulty level.
+        :type difficulty: int
         """
         self.difficulty = difficulty
 
@@ -33,7 +34,8 @@ class ProofOfWork:
 
         It modifies the block.nonce and block.hash attribute.
 
-        :param Block block: The block to be mined.
+        :param block: The block to be mined.
+        :type block: Block
         :return: The hash of the mined block.
         :rtype: str
         """
@@ -49,7 +51,8 @@ class ProofOfWork:
         """
         Validates that a block's hash meets the difficulty criteria.
 
-        :param Block block: The block to be validated.
+        :param block: The block to be validated.
+        :type block: Block
         :return: True if the block's hash is valid, False otherwise.
         :rtype: bool
         """
@@ -94,8 +97,10 @@ class Validator:
         """
         Validates a single block in relation to the previous block.
 
-        :param Block current_block: The block to be validated.
-        :param Block previous_block: The previous block in the chain.
+        :param current_block: The block to be validated.
+        :type current_block: Block
+        :param previous_block: The previous block in the chain.
+        :type previous_block: Block
         :return: True if the block is valid, False otherwise.
         :rtype: bool
         """

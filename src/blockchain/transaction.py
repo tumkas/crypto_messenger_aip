@@ -28,6 +28,7 @@ class Transaction:
     :ivar Any content: Additional content or comment associated with the transaction.
     :ivar bytes sign_public_key: The public key of the sender for verification.
     :ivar bytes signature: The encrypted signature to secure the transaction.
+    :ivar float timestamp: The timestamp of the transaction.
     """
 
     def __init__(
@@ -43,12 +44,20 @@ class Transaction:
         """
         Initializes a new Transaction instance.
 
-        :param bytes sender: The initiator of the transaction.
-        :param bytes recipient: The recipient of the transaction.
-        :param float amount: The amount of coins to be transferred.
-        :param Any content: Additional content or comment associated with the transaction.
-        :param bytes sign_public_key: The public key of the sender for verification.
-        :param bytes signature: The encrypted signature to secure the transaction.
+        :param sender: The initiator of the transaction.
+        :type sender: bytes
+        :param recipient: The recipient of the transaction.
+        :type recipient: bytes
+        :param amount: The amount of coins to be transferred.
+        :type amount: float
+        :param content: Additional content or comment associated with the transaction.
+        :type content: Any
+        :param sign_public_key: The public key of the sender for verification.
+        :type sign_public_key: bytes
+        :param signature: The encrypted signature to secure the transaction.
+        :type signature: bytes
+        :param timestamp: The timestamp of the transaction.
+        :type timestamp: float
         """
         self.sender = sender
         self.recipient = recipient
@@ -58,7 +67,7 @@ class Transaction:
         self.signature = signature
         self.timestamp = timestamp
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, str]:
         """
         Returns a dictionary representation of the transaction's data.
 
@@ -97,7 +106,8 @@ class Transaction:
         """
         Signs the transaction using the sender's private key.
 
-        :param rsa.RSAPrivateKey signer: The private key used to sign the transaction.
+        :param signer: The private key used to sign the transaction.
+        :type signer: rsa.RSAPrivateKey
         :raises ValueError: If the transaction does not have a sender or recipient.
         """
         if not self.sender or not self.recipient:
@@ -112,7 +122,8 @@ class Transaction:
         """
         Checks if the transaction's signature is valid using the sender's public key.
 
-        :param bytes public_key: The public key to verify the signature.
+        :param public_key: The public key to verify the signature.
+        :type public_key: bytes
         :return: True if the signature is valid, False otherwise.
         :rtype: bool
         """
